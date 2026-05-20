@@ -9,66 +9,47 @@ use App\Models\Siswa;
 use App\Models\Absensi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth; // Untuk autentikasi
+use Illuminate\Support\Facades\Auth;
 
 class JurnalController extends Controller
 {
-    public function rekapitulasi()
-    {
-        // Menggunakan 'with' untuk memuat relasi (eager loading) agar tidak error saat memanggil $jurnal->kelas
-        $jurnals = \App\Models\Jurnal::with(['kelas', 'mapel'])->latest()->get();
-
-        // Pastikan data ini dihitung berdasarkan database, bukan angka statis
-        $totalSesi = \App\Models\Jurnal::count();
-        $kehadiran = 94.8;
-
-        return view('admin.rekapitulasi', compact('jurnals', 'totalSesi', 'kehadiran'));
-    }
-
-    public function destroy($id)
-    {
-        $jurnal = \App\Models\Jurnal::findOrFail($id);
-        $jurnal->delete();
-
-        return redirect()->back()->with('success', 'Data berhasil dihapus!');
-    }
-
-    public function getSiswaByKelas($kelas_id)
-    {
-        // Ambil data siswa berdasarkan id kelas
-        $siswas = \App\Models\Siswa::where('kelas_id', $kelas_id)
-            ->orderBy('no_absen', 'asc')
-            ->get();
-
-        // WAJIB: Mengembalikan response berupa json murni, BUKAN return view()!
-        return response()->json($siswas);
-    }
-
+    // 1. Menampilkan Halaman Login
     public function showLogin()
     {
         return view('auth.login');
     }
 
+    // 2. Memproses Data Form Login
     public function login(Request $request)
     {
+        // Validasi input form wajib diisi
         $request->validate([
             'username' => 'required',
             'password' => 'required',
         ]);
 
+        // Mengambil data user berdasarkan kolom 'name' di tabel users (sesuai database kamu)
         $user = DB::table('users')->where('name', $request->username)->first();
 
+        // Validasi kecocokan data user dan password teks biasa (plain text)
         if ($user && $user->password === $request->password) {
+            // Login otomatis ke sistem Laravel menggunakan ID user
             Auth::loginUsingId($user->id);
+            
+            // Menyegarkan session keamanan
             $request->session()->regenerate();
+            
+            // Mengalihkan langsung ke halaman dashboard admin
             return redirect()->route('dashboard');
         }
 
+        // Jika salah, dikembalikan ke form login beserta pesan peringatan
         return back()->withErrors([
-            'username' => 'Username atau password salah.',
+            'username' => 'Username atau password yang Anda masukkan salah.',
         ])->onlyInput('username');
     }
 
+    // 3. Menampilkan Halaman Dashboard Utama
     public function dashboardAdmin()
     {
         // Hitung data informasi card box secara dinamis
@@ -77,11 +58,10 @@ class JurnalController extends Controller
         $guruAktif = DB::table('users')->count();
         $totalKelas = DB::table('kelas')->count();
 
-        // Tarik entri jurnal mengajar terbaru
-        // Cari bagian query yang mirip ini dan tambahkan jurnals.id
+        // Tarik data entri jurnal mengajar terbaru
         $jurnalTerbaru = DB::table('jurnals')
             ->select(
-                'jurnals.id', // TAMBAHKAN INI
+                'jurnals.id',
                 'kelas.nama_kelas',
                 'users.name as nama_guru',
                 'mapels.nama_mapel as mata_pelajaran',
@@ -95,11 +75,11 @@ class JurnalController extends Controller
             ->limit(4)
             ->get();
 
-        // Pastikan memakai 'admin.dashboard'
+        // Menampilkan file view di folder resources/views/admin/dashboard.blade.php
         return view('admin.dashboard', compact('jurnalTerbaru', 'totalJurnalHariIni', 'totalKelas', 'guruAktif', 'totalSiswa'));
     }
 
-    // Proses Keluar Aplikasi
+    // 4. Proses Keluar Aplikasi (Logout)
     public function logout(Request $request)
     {
         Auth::logout();
@@ -107,19 +87,50 @@ class JurnalController extends Controller
         $request->session()->regenerateToken();
         return redirect('/login');
     }
+
+    // 5. Menampilkan Halaman Rekapitulasi Data Jurnal
+    public function rekapitulasi()
+    {
+        $jurnals = \App\Models\Jurnal::with(['kelas', 'mapel'])->latest()->get();
+        $totalSesi = \App\Models\Jurnal::count();
+        $kehadiran = 94.8;
+
+        return view('admin.rekapitulasi', compact('jurnals', 'totalSesi', 'kehadiran'));
+    }
+
+    // 6. Menghapus Data Jurnal Berdasarkan ID
+    public function destroy($id)
+    {
+        $jurnal = \App\Models\Jurnal::findOrFail($id);
+        $jurnal->delete();
+
+        return redirect()->back()->with('success', 'Data berhasil dihapus!');
+    }
+
+    // 7. API Pendukung Ambil Data Siswa (AJAX)
+    public function getSiswaByKelas($kelas_id)
+    {
+        $siswas = \App\Models\Siswa::where('kelas_id', $kelas_id)
+            ->orderBy('no_absen', 'asc')
+            ->get();
+
+        return response()->json($siswas);
+    }
+
+    // 8. Menampilkan Halaman Form Tambah Jurnal Baru
     public function create()
     {
         $data_kelas = Kelas::all();
         $data_mapel = Mapel::all();
-        $data_siswa = Siswa::all(); // Nanti bisa difilter per kelas pakai AJAX
+        $data_siswa = Siswa::all();
 
         return view('jurnal.create', compact('data_kelas', 'data_mapel', 'data_siswa'));
     }
 
-    // Menyimpan data jurnal dan absensi sekaligus
+    // 9. Menyimpan Data Jurnal dan Absensi ke Database
+    // 9. Menyimpan Data Jurnal dan Absensi ke Database
     public function store(Request $request)
     {
-        // 1. Validasi input
         $request->validate([
             'tanggal' => 'required|date',
             'kelas_id' => 'required',
@@ -128,13 +139,10 @@ class JurnalController extends Controller
             'materi' => 'nullable',
         ]);
 
-        // 2. Gunakan Transaction agar jika salah satu gagal, semua dibatalkan (aman)
         DB::transaction(function () use ($request) {
-
-            // Simpan data Jurnal utama
             $jurnal = Jurnal::create([
                 'tanggal' => $request->tanggal,
-                'user_id' => Auth::id(), // ID Guru yang login
+                'user_id' => Auth::id(),
                 'mapel_id' => $request->mapel_id,
                 'kelas_id' => $request->kelas_id,
                 'jam_pelajaran' => $request->jam_pelajaran,
@@ -142,30 +150,20 @@ class JurnalController extends Controller
                 'materi' => $request->materi,
             ]);
 
-            // Simpan data Absensi Siswa (Looping dari input form)
-            // Simpan data Absensi Siswa
             if ($request->has('absensi')) {
                 foreach ($request->absensi as $siswa_id => $status) {
-
-                    // 1. Cek apakah statusnya BUKAN 'Hadir'
-                    // Jika statusnya adalah 'Sakit', 'Izin', atau 'Alpa', maka simpan
-                    if ($status !== 'Hadir') {
-
-                        // Translasi untuk memastikan sesuai dengan ENUM database ('Alpa')
+                    if ($status !== 'Hadir') { // <--- Pastikan ada kurung kurawal buka di sini
                         $status_final = ($status === 'Alfa') ? 'Alpa' : $status;
 
-                        // Simpan ke database
                         Absensi::create([
                             'jurnal_id' => $jurnal->id,
                             'siswa_id' => $siswa_id,
                             'status' => $status_final,
                         ]);
-                    }
-                    // Jika statusnya 'Hadir', blok if di atas akan dilewati, 
-                    // sehingga tidak ada data yang masuk ke database untuk siswa tersebut.
-                }
-            }
-        });
+                    } 
+                } 
+            } 
+        }); 
 
         return redirect()->route('jurnal.create')->with('success', 'Jurnal Berhasil Disimpan!');
     }
