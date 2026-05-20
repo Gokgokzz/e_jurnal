@@ -128,7 +128,6 @@ class JurnalController extends Controller
     }
 
     // 9. Menyimpan Data Jurnal dan Absensi ke Database
-    // 9. Menyimpan Data Jurnal dan Absensi ke Database
     public function store(Request $request)
     {
         $request->validate([
@@ -152,7 +151,7 @@ class JurnalController extends Controller
 
             if ($request->has('absensi')) {
                 foreach ($request->absensi as $siswa_id => $status) {
-                    if ($status !== 'Hadir') { // <--- Pastikan ada kurung kurawal buka di sini
+                    if ($status !== 'Hadir') {
                         $status_final = ($status === 'Alfa') ? 'Alpa' : $status;
 
                         Absensi::create([
@@ -160,10 +159,10 @@ class JurnalController extends Controller
                             'siswa_id' => $siswa_id,
                             'status' => $status_final,
                         ]);
-                    } 
-                } 
-            } 
-        }); 
+                    }
+                }
+            }
+        });
 
         return redirect()->route('jurnal.create')->with('success', 'Jurnal Berhasil Disimpan!');
     }
