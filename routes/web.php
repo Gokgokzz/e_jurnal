@@ -25,10 +25,13 @@ Route::post('/logout', [JurnalController::class, 'logout'])->name('logout');
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [JurnalController::class, 'dashboardAdmin'])->name('dashboard');
     Route::get('/admin-profile-dummy', function () {
-        return 'Halaman Profile'; })->name('profile.edit');
+        return 'Halaman Profile';
+    })->name('profile.edit');
     Route::get('/api/kelas/{kelas_id}/siswa', [JurnalController::class, 'getSiswaByKelas']);
 
     Route::get('/jurnal/{id}/edit', [JurnalController::class, 'edit'])->name('jurnal.edit');
     Route::delete('/jurnal/{id}', [JurnalController::class, 'destroy'])->name('jurnal.destroy');
     Route::put('/jurnal/{id}', [JurnalController::class, 'update'])->name('jurnal.update');
+
+    Route::get('/rekapitulasi', [App\Http\Controllers\JurnalController::class, 'rekapitulasi'])->name('rekapitulasi');
 });

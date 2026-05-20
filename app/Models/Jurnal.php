@@ -30,13 +30,13 @@ class Jurnal extends Model
     // Relasi ke Mata Pelajaran
     public function mapel()
     {
-        return $this->belongsTo(Mapel::class);
+        return $this->belongsTo(Mapel::class, 'mapel_id');
     }
 
     // Relasi ke Kelas
     public function kelas()
     {
-        return $this->belongsTo(Kelas::class);
+        return $this->belongsTo(Kelas::class, 'kelas_id');
     }
 
     // Relasi ke Absensi (Satu jurnal punya banyak catatan absen)
