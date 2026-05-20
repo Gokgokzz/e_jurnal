@@ -13,18 +13,16 @@ use Illuminate\Support\Facades\Auth; // Untuk autentikasi
 
 class JurnalController extends Controller
 {
-
-    public function edit($id)
+    public function rekapitulasi()
     {
-        // 1. Ambil data jurnal yang mau diedit
-        $jurnal = \App\Models\Jurnal::findOrFail($id);
+        // Menggunakan 'with' untuk memuat relasi (eager loading) agar tidak error saat memanggil $jurnal->kelas
+        $jurnals = \App\Models\Jurnal::with(['kelas', 'mapel'])->latest()->get();
 
-        // 2. Ambil data pendukung (kelas, mapel, siswa jika diperlukan)
-        $data_kelas = \App\Models\Kelas::all();
+        // Pastikan data ini dihitung berdasarkan database, bukan angka statis
+        $totalSesi = \App\Models\Jurnal::count();
+        $kehadiran = 94.8;
 
-        // 3. Langsung arahkan ke view yang sama dengan form input
-        // Asumsi file form input Anda namanya 'create.blade.php' atau 'form.blade.php'
-        return view('jurnal.create', compact('jurnal', 'data_kelas'));
+        return view('admin.rekapitulasi', compact('jurnals', 'totalSesi', 'kehadiran'));
     }
 
     public function destroy($id)

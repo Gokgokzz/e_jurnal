@@ -26,7 +26,10 @@
         <div>
             <div class="flex items-center gap-3 mb-10 px-2">
                 <img src="{{ asset('images/logo smk1.jpeg') }}" class="w-8 h-8" alt="Logo">
-                <span class="font-extrabold text-sm text-[#6376EB] tracking-wider">E-JURNAL</span>
+                <div>
+                    <h1 class="font-bold text-base text-slate-900 leading-tight">E-Jurnal</h1>
+                    <p class="text-xs text-slate-400 font-medium uppercase">SMKN 1 Denpasar</p>
+                </div>
             </div>
 
             <nav class="space-y-2">
@@ -168,11 +171,21 @@
                                     <td class="py-4 text-sm text-gray-600">{{ $jurnal->nama_kelas }}</td>
                                     <td class="py-4 text-sm text-gray-600">{{ $jurnal->nama_guru }}</td>
                                     <td class="py-4 text-sm text-gray-600">{{ $jurnal->mata_pelajaran }}</td>
+
                                     <td class="py-4 text-sm text-gray-600">
-                                        <span class="bg-red-50 text-red-500 px-3 py-1 rounded-full text-[10px] font-bold">
-                                            {{ $jurnal->status }}
-                                        </span>
+                                        @if($jurnal->status == 'Selesai' || $jurnal->status == 'Terisi')
+                                            <span
+                                                class="bg-emerald-50 text-emerald-600 px-3 py-1 rounded-full text-[10px] font-bold uppercase">
+                                                {{ $jurnal->status }}
+                                            </span>
+                                        @else
+                                            <span
+                                                class="bg-red-50 text-red-500 px-3 py-1 rounded-full text-[10px] font-bold uppercase">
+                                                {{ $jurnal->status ?? 'Belum Diisi' }}
+                                            </span>
+                                        @endif
                                     </td>
+
                                     <td class="py-4 text-sm text-gray-600 relative">
                                         <button type="button" onclick="toggleDropdown(this)"
                                             class="p-2 hover:bg-gray-100 rounded-full transition">
