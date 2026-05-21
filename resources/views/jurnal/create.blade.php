@@ -224,6 +224,7 @@
                             tabelSiswa.innerHTML = '<tr><td colspan="6" class="py-6 text-center text-xs text-slate-400 font-medium">Tidak ada data siswa di kelas ini.</td></tr>';
                             return;
                         }
+                        
 
                         // Render HTML baris demi baris menggunakan 'no_absen' asli dari DB (tanpa NIS)
                         data.forEach(siswa => {
