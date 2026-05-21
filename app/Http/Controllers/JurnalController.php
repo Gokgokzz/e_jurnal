@@ -13,7 +13,22 @@ use Illuminate\Support\Facades\Auth;
 
 class JurnalController extends Controller
 {
-    // 1. Menampilkan Halaman Login
+    public function rekapitulasi()
+    {
+        $jurnals = \App\Models\Jurnal::with(['kelas', 'mapel'])->latest()->get();
+        $totalSesi = \App\Models\Jurnal::count();
+        $kehadiran = 94.8;
+
+        return view('admin.rekapitulasi', compact('jurnals', 'totalSesi', 'kehadiran'));
+    }
+
+    // Di dalam class Jurnal
+    public function mapel()
+    {
+        // Sesuaikan 'mapel_id' dengan nama foreign key di tabel jurnal Anda
+        return $this->belongsTo(Mapel::class, 'mapel_id');
+    }
+
     public function showLogin()
     {
         return view('auth.login');
@@ -35,10 +50,10 @@ class JurnalController extends Controller
         if ($user && $user->password === $request->password) {
             // Login otomatis ke sistem Laravel menggunakan ID user
             Auth::loginUsingId($user->id);
-            
+
             // Menyegarkan session keamanan
             $request->session()->regenerate();
-            
+
             // Mengalihkan langsung ke halaman dashboard admin
             return redirect()->route('dashboard');
         }
@@ -88,17 +103,6 @@ class JurnalController extends Controller
         return redirect('/login');
     }
 
-    // 5. Menampilkan Halaman Rekapitulasi Data Jurnal
-    public function rekapitulasi()
-    {
-        $jurnals = \App\Models\Jurnal::with(['kelas', 'mapel'])->latest()->get();
-        $totalSesi = \App\Models\Jurnal::count();
-        $kehadiran = 94.8;
-
-        return view('admin.rekapitulasi', compact('jurnals', 'totalSesi', 'kehadiran'));
-    }
-
-    // 6. Menghapus Data Jurnal Berdasarkan ID
     public function destroy($id)
     {
         $jurnal = \App\Models\Jurnal::findOrFail($id);

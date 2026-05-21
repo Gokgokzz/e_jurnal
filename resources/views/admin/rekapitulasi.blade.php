@@ -93,7 +93,7 @@
                                                 class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600">
                                                 <i class="fa-solid fa-book"></i>
                                             </div>
-                                            {{ $jurnal->mata_pelajaran ?? 'Mapel Kosong' }}
+                                            {{ $jurnal->mapel->nama_mapel ?? 'Mapel Tidak Ditemukan' }}
                                         </div>
                                     </td>
                                     <td class="py-4 text-slate-600">{{ $jurnal->kelas->nama_kelas ?? 'Kelas -' }}</td>
