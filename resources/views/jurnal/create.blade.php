@@ -26,13 +26,13 @@
                         class="flex items-center gap-4 px-4 py-3 text-slate-400 hover:text-blue-600 rounded-xl font-medium text-sm transition">
                         <span class="w-5 text-center"> <i class="fa-solid fa-house text-lg"></i></span> Dashboard
                     </a>
-                    <a href="#"
+                    <a href="{{ route('jurnal.create') }}"
                         class="flex items-center gap-4 px-4 py-3 bg-blue-50 text-blue-600 rounded-xl font-semibold text-sm transition">
                         <span class="w-5 text-center"><i class="fa-solid fa-pen-to-square text-base"></i></span> Input
                         Jurnal
                     </a>
-                    <a href="#"
-                        class="flex items-center gap-4 px-4 py-3 text-slate-400 hover:text-slate-600 rounded-xl font-medium text-sm transition">
+                    <a href="{{ route('rekapitulasi') }}"
+                        class="flex items-center gap-4 px-4 py-3 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl font-medium text-sm transition">
                         <span class="w-5 text-center"><i class="fa-solid fa-chart-simple text-lg"></i></span>
                         Rekapitulasi
                     </a>

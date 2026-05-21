@@ -32,20 +32,22 @@
             </div>
 
             <nav class="space-y-2">
-                <a href="#" class="flex items-center gap-3 px-4 py-3 bg-blue-50/70 text-[#6376EB] font-bold rounded-xl text-sm transition-all">
+                <a href="{{ route('dashboard') }}"
+                    class="flex items-center gap-3 px-4 py-3 bg-blue-50/70 text-[#6376EB] font-bold rounded-xl text-sm transition-all">
                     <i class="fa-solid fa-house text-lg"></i>
                     Dashboard
                 </a>
-                <a href="{{ route('jurnal.create') }}" class="flex items-center gap-4 px-4 py-3 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl font-medium text-sm transition">
-                    <span class="w-5 text-center"><i class="fa-solid fa-pen-to-square text-base"></i></span> Input Jurnal
+
+                <a href="{{ route('jurnal.create') }}"
+                    class="flex items-center gap-4 px-4 py-3 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl font-medium text-sm transition">
+                    <span class="w-5 text-center"><i class="fa-solid fa-pen-to-square text-base"></i></span> Input
+                    Jurnal
                 </a>
-                <a href="#" class="flex items-center gap-3 px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-800 font-semibold rounded-xl text-sm transition-all">
+
+                <a href="{{ route('rekapitulasi') }}"
+                    class="flex items-center gap-3 px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-800 font-semibold rounded-xl text-sm transition-all">
                     <i class="fa-solid fa-chart-simple text-lg"></i>
                     Rekapitulasi
-                </a>
-                <a href="#" class="flex items-center gap-3 px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-800 font-semibold rounded-xl text-sm transition-all">
-                    <i class="fa-solid fa-gear text-lg"></i>
-                    Pengaturan
                 </a>
             </nav>
         </div>
@@ -56,7 +58,7 @@
             </form>
             <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="flex items-center gap-3 px-4 py-3 text-red-500 hover:bg-red-50 font-bold rounded-xl text-sm transition-all">
                 <i class="fa-solid fa-right-from-bracket text-lg"></i>
-                Keluar
+                Logout
             </a>
         </div>
     </aside>
