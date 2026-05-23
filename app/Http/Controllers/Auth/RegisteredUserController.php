@@ -34,8 +34,7 @@ class RegisteredUserController extends Controller
         ]);
 
         event(new Registered($user));
-        Auth::login($user);
 
-        return redirect('/dashboard');
+        return redirect('/login')->with('success', 'Pendaftaran berhasil! Silakan masuk menggunakan NIP/Email dan password Anda.');
     }
 }

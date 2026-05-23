@@ -2,51 +2,78 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Saya</title>
+    <link rel="icon" type="image/png" href="{{ asset('images/logo-skensa.png') }}" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <style>body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #F8FAFC; }</style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+        }
+        .bg-custom-gradient {
+            background: linear-gradient(180deg, #A8BEF0 0%, #F4F7FF 100%);
+        }
+    </style>
 </head>
-<body class="p-10">
+<body class="bg-custom-gradient min-h-screen flex items-center justify-center p-4 md:p-8">
 
-    <div class="max-w-4xl mx-auto">
-        <div class="mb-8">
-            <h1 class="text-2xl font-extrabold text-gray-800">Profil Saya</h1>
-            <p class="text-gray-400 text-sm">Informasi akun pengguna</p>
+    <div class="bg-white/40 backdrop-blur-xl rounded-[40px] shadow-2xl w-full max-w-[950px] border border-white/60 p-6 md:p-10">
+        
+        <div class="mb-8 ml-2">
+            <h1 class="text-3xl font-extrabold text-gray-900 mb-1 tracking-tight">Profil Saya</h1>
+            <p class="text-gray-500 text-xs font-semibold">Informasi mendetail akun pengguna Anda</p>
         </div>
 
-        <div class="bg-white rounded-[32px] border border-gray-100 p-8 shadow-sm flex flex-col md:flex-row gap-8">
-            <div class="flex flex-col items-center">
-                <div class="w-32 h-32 bg-[#6376EB] text-white rounded-full flex items-center justify-center text-4xl font-bold shadow-lg mb-4">
-                    {{ substr(Auth::user()->name, 0, 2) }}
+        <div class="bg-white rounded-[32px] border border-gray-100/80 p-6 md:p-8 shadow-sm flex flex-col md:flex-row gap-8 items-center md:items-start">
+            
+            <div class="flex flex-col items-center min-w-[160px]">
+                <div class="w-28 h-28 bg-[#6376EB] text-white rounded-full flex items-center justify-center text-3xl font-extrabold shadow-md mb-4 select-none">
+                    {{ strtoupper(substr(Auth::user()->name, 0, 2)) }}
                 </div>
-                <h2 class="font-bold text-lg text-gray-800">{{ Auth::user()->name }}</h2>
-                <p class="text-xs text-gray-400 uppercase tracking-widest">Administrator</p>
+                <h2 class="font-bold text-lg text-gray-800 text-center leading-tight mb-1.5">{{ Auth::user()->name }}</h2>
+                <span class="px-3 py-1 bg-blue-50 text-[#6376EB] rounded-full text-[10px] font-extrabold uppercase tracking-wider">
+                    Administrator
+                </span>
             </div>
 
-            <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-slate-50 p-4 rounded-2xl">
-                    <p class="text-[10px] font-bold text-gray-400 uppercase">Nama Lengkap</p>
+            <div class="flex-1 w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
+                
+                <div class="bg-slate-50/70 p-4 rounded-2xl border border-slate-100/50">
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Nama Lengkap</p>
                     <p class="text-sm font-semibold text-gray-700">{{ Auth::user()->name }}</p>
                 </div>
-                <div class="bg-slate-50 p-4 rounded-2xl">
-                    <p class="text-[10px] font-bold text-gray-400 uppercase">Email</p>
-                    <p class="text-sm font-semibold text-gray-700">{{ Auth::user()->email }}</p>
-                </div>
-                <div class="bg-slate-50 p-4 rounded-2xl">
-                    <p class="text-[10px] font-bold text-gray-400 uppercase">NIP</p>
+
+                <div class="bg-slate-50/70 p-4 rounded-2xl border border-slate-100/50">
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">NIP (Nomor Induk Pegawai)</p>
                     <p class="text-sm font-semibold text-gray-700">{{ Auth::user()->nip ?? '-' }}</p>
                 </div>
-                <div class="bg-slate-50 p-4 rounded-2xl">
-                    <p class="text-[10px] font-bold text-gray-400 uppercase">Terdaftar Sejak</p>
-                    <p class="text-sm font-semibold text-gray-700">{{ Auth::user()->created_at ? Auth::user()->created_at->format('d M Y') : 'Data belum tersedia' }}</p>
+
+                <div class="bg-slate-50/70 p-4 rounded-2xl border border-slate-100/50">
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Email Aktif</p>
+                    <p class="text-sm font-semibold text-gray-700">{{ Auth::user()->email }}</p>
                 </div>
+
+                <div class="bg-slate-50/70 p-4 rounded-2xl border border-slate-100/50">
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Terdaftar Sejak</p>
+                    <p class="text-sm font-semibold text-gray-700">
+                        {{ Auth::user()->created_at ? Auth::user()->created_at->format('d M Y') : 'Data belum tersedia' }}
+                    </p>
+                </div>
+
             </div>
         </div>
 
-        <div class="mt-8">
-            <a href="{{ route('profile.edit') }}">Edit Profil</a>
-            <a href="{{ route('dashboard') }}" class="text-sm text-gray-500 hover:text-[#6376EB] transition">
-                <i class="fa-solid fa-arrow-left mr-2"></i> Kembali ke Dashboard
+        <div class="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 px-2">
+            <a href="{{ route('dashboard') }}" class="text-xs font-bold text-gray-500 hover:text-[#6376EB] transition-all flex items-center gap-2 order-2 sm:order-1">
+                <i class="fa-solid fa-arrow-left text-sm"></i> Kembali ke Dashboard
+            </a>
+
+            <a href="{{ route('profile.edit') }}" 
+               class="w-full sm:w-auto px-6 py-3.5 bg-[#6786DC] hover:bg-[#5A79D4] text-white text-xs font-bold rounded-xl shadow-md text-center transition-all active:scale-[0.98] order-1 sm:order-2">
+                <i class="fa-regular fa-pen-to-square mr-1.5"></i> Edit Data Profil
             </a>
         </div>
     </div>
