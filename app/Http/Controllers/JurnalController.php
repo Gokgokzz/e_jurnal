@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\Auth;
 
 class JurnalController extends Controller
 {
+    public function showProfile()
+    {
+        $user = Auth::user();
+        // Pastikan ini merujuk ke folder 'admin' dan file 'profile'
+        return view('admin.profile', compact('user'));
+    }
+
     public function rekapitulasi()
     {
         $jurnals = \App\Models\Jurnal::with(['kelas', 'mapel'])->latest()->get();

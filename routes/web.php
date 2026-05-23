@@ -8,21 +8,21 @@
     Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
     Route::post('/register', [RegisteredUserController::class, 'store']);
 
+    // -- Login & Logout ---
     Route::get('/login', [JurnalController::class, 'showLogin'])->name('login');
     Route::post('/login', [JurnalController::class, 'login']);
     Route::post('/logout', [JurnalController::class, 'logout'])->name('logout');
 
-    // --- Halaman Jurnal & Dashboard ---
+    // --- Halaman Profil, Jurnal & Dashboard ---
     Route::get('/', function () {
         return redirect()->route('login'); });
 
     Route::middleware('auth')->group(function () {
         Route::get('/dashboard', [JurnalController::class, 'dashboardAdmin'])->name('dashboard');
-
+        Route::get('/profile', [JurnalController::class, 'showProfile'])->name('profile');
         // Route lainnya...
         Route::get('/jurnal/create', [JurnalController::class, 'create'])->name('jurnal.create');
         Route::post('/jurnal/store', [JurnalController::class, 'store'])->name('jurnal.store');
-        // Tambahkan sisa route Anda di sini...
     });
 
     // Proteksi halaman dashboard admin

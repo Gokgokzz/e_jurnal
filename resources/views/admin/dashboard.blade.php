@@ -8,7 +8,8 @@
     <link rel="icon" type="image/png" href="{{ asset('images/logo-skensa.png') }}" />
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
@@ -56,7 +57,8 @@
             <form action="{{ url('/logout') }}" method="POST" id="logout-form" class="hidden">
                 @csrf
             </form>
-            <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="flex items-center gap-3 px-4 py-3 text-red-500 hover:bg-red-50 font-bold rounded-xl text-sm transition-all">
+            <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                class="flex items-center gap-3 px-4 py-3 text-red-500 hover:bg-red-50 font-bold rounded-xl text-sm transition-all">
                 <i class="fa-solid fa-right-from-bracket text-lg"></i>
                 Logout
             </a>
@@ -76,23 +78,32 @@
                     <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
                 </button>
                 <div class="flex items-center gap-3">
-                    <div class="text-right">
-                        <p class="text-sm font-bold text-gray-800">{{ Auth::user()->name ?? 'Admin SMK' }}</p>
-                        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Administrator</p>
-                    </div>
-                    <div class="w-10 h-10 bg-[#7A95E8] text-white rounded-full flex items-center justify-center font-bold text-sm shadow-md">
-                        AD
-                    </div>
+                    <a href="{{ route('profile') }}"
+                        class="flex items-center gap-3 hover:opacity-80 transition-opacity">
+                        <div class="text-right">
+                            <p class="text-sm font-bold text-gray-800">{{ Auth::user()->name ?? 'Admin SMK' }}</p>
+                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Administrator</p>
+                        </div>
+                        <div
+                            class="w-10 h-10 bg-[#7A95E8] text-white rounded-full flex items-center justify-center font-bold text-sm shadow-md">
+                            {{ substr(Auth::user()->name, 0, 2) }}
+                        </div>
+                    </a>
                 </div>
             </div>
         </header>
 
-        <section class="bg-gradient-to-r from-[#6376EB] to-[#7A95E8] rounded-[32px] p-8 md:p-12 text-white relative overflow-hidden shadow-lg shadow-blue-500/10 mb-8 flex flex-col md:flex-row md:items-center justify-start gap-6">
+        <section
+            class="bg-gradient-to-r from-[#6376EB] to-[#7A95E8] rounded-[32px] p-8 md:p-12 text-white relative overflow-hidden shadow-lg shadow-blue-500/10 mb-8 flex flex-col md:flex-row md:items-center justify-start gap-6">
             <div class="absolute top-6 right-12 w-20 h-20 bg-white/10 rounded-2xl rotate-12 pointer-events-none"></div>
-            <div class="absolute -bottom-6 right-36 w-16 h-16 bg-white/15 rounded-xl -rotate-12 pointer-events-none"></div>
+            <div class="absolute -bottom-6 right-36 w-16 h-16 bg-white/15 rounded-xl -rotate-12 pointer-events-none">
+            </div>
 
-            <div class="relative flex justify-center md:justify-start items-end h-40 md:h-48 w-full md:w-auto flex-shrink-0">
-                <img src="{{ asset('images/siswa.png') }}" class="h-full w-auto object-contain object-bottom select-none pointer-events-none z-10" alt="Ilustrasi Siswa">
+            <div
+                class="relative flex justify-center md:justify-start items-end h-40 md:h-48 w-full md:w-auto flex-shrink-0">
+                <img src="{{ asset('images/siswa.png') }}"
+                    class="h-full w-auto object-contain object-bottom select-none pointer-events-none z-10"
+                    alt="Ilustrasi Siswa">
             </div>
 
             <div class="max-w-xl relative z-10 flex-1 text-left md:pl-20">
@@ -100,13 +111,16 @@
                     Selamat Datang kembali, Admin!
                 </h2>
                 <p class="text-white/80 text-xs md:text-sm font-medium leading-relaxed mb-3 md:whitespace-nowrap">
-                    Pantau kehadiran guru dan siswa secara real-time. Hari ini terdapat beberapa agenda penting yang perlu divalidasi.
+                    Pantau kehadiran guru dan siswa secara real-time. Hari ini terdapat beberapa agenda penting yang
+                    perlu divalidasi.
                 </p>
                 <div class="flex flex-wrap gap-3">
-                    <button class="px-5 py-2.5 bg-white text-[#6376EB] font-semibold rounded-xl text-xs hover:bg-opacity-90 transition-all shadow-sm">
+                    <button
+                        class="px-5 py-2.5 bg-white text-[#6376EB] font-semibold rounded-xl text-xs hover:bg-opacity-90 transition-all shadow-sm">
                         Lihat Jadwal
                     </button>
-                    <button class="px-5 py-2.5 bg-white/20 border border-white/10 text-white font-semibold rounded-xl text-xs hover:bg-white/30 transition-all">
+                    <button
+                        class="px-5 py-2.5 bg-white/20 border border-white/10 text-white font-semibold rounded-xl text-xs hover:bg-white/30 transition-all">
                         Download Laporan
                     </button>
                 </div>
@@ -115,9 +129,11 @@
 
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-8 w-full">
 
-            <div class="bg-white p-5 rounded-[24px] border border-gray-100 shadow-sm flex flex-col justify-start h-[150px] md:h-[160px] relative transition-all hover:shadow-md">
+            <div
+                class="bg-white p-5 rounded-[24px] border border-gray-100 shadow-sm flex flex-col justify-start h-[150px] md:h-[160px] relative transition-all hover:shadow-md">
                 <div class="flex justify-between items-center w-full">
-                    <div class="w-11 h-11 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center text-lg shadow-sm">
+                    <div
+                        class="w-11 h-11 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center text-lg shadow-sm">
                         <i class="fa-solid fa-book-open"></i>
                     </div>
                     <span class="bg-emerald-50 text-emerald-600 px-2.5 py-0.5 rounded-full text-[10px] font-bold">
@@ -135,9 +151,11 @@
                 </div>
             </div>
 
-            <div class="bg-white p-5 rounded-[24px] border border-gray-100 shadow-sm flex flex-col justify-start h-[150px] md:h-[160px] relative transition-all hover:shadow-md">
+            <div
+                class="bg-white p-5 rounded-[24px] border border-gray-100 shadow-sm flex flex-col justify-start h-[150px] md:h-[160px] relative transition-all hover:shadow-md">
                 <div class="flex justify-between items-center w-full">
-                    <div class="w-11 h-11 bg-purple-50 text-purple-600 rounded-2xl flex items-center justify-center text-lg shadow-sm">
+                    <div
+                        class="w-11 h-11 bg-purple-50 text-purple-600 rounded-2xl flex items-center justify-center text-lg shadow-sm">
                         <i class="fa-solid fa-users"></i>
                     </div>
                     <span class="text-slate-400 text-[10px] font-bold uppercase tracking-wider">
@@ -155,9 +173,11 @@
                 </div>
             </div>
 
-            <div class="bg-white p-5 rounded-[24px] border border-gray-100 shadow-sm flex flex-col justify-start h-[150px] md:h-[160px] relative transition-all hover:shadow-md">
+            <div
+                class="bg-white p-5 rounded-[24px] border border-gray-100 shadow-sm flex flex-col justify-start h-[150px] md:h-[160px] relative transition-all hover:shadow-md">
                 <div class="flex justify-between items-center w-full">
-                    <div class="w-11 h-11 bg-orange-50 text-orange-500 rounded-2xl flex items-center justify-center text-lg shadow-sm">
+                    <div
+                        class="w-11 h-11 bg-orange-50 text-orange-500 rounded-2xl flex items-center justify-center text-lg shadow-sm">
                         <i class="fa-solid fa-user-tie"></i>
                     </div>
                     <span class="bg-emerald-50 text-emerald-600 px-2 py-0.5 rounded-full text-[10px] font-bold">
@@ -175,9 +195,11 @@
                 </div>
             </div>
 
-            <div class="bg-white p-5 rounded-[24px] border border-gray-100 shadow-sm flex flex-col justify-start h-[150px] md:h-[160px] relative transition-all hover:shadow-md">
+            <div
+                class="bg-white p-5 rounded-[24px] border border-gray-100 shadow-sm flex flex-col justify-start h-[150px] md:h-[160px] relative transition-all hover:shadow-md">
                 <div class="flex justify-between items-center w-full">
-                    <div class="w-11 h-11 bg-teal-50 text-teal-600 rounded-2xl flex items-center justify-center text-lg shadow-sm">
+                    <div
+                        class="w-11 h-11 bg-teal-50 text-teal-600 rounded-2xl flex items-center justify-center text-lg shadow-sm">
                         <i class="fa-solid fa-door-open"></i>
                     </div>
                     <span class="text-slate-400 text-[10px] font-bold uppercase tracking-wider">
@@ -274,8 +296,10 @@
                 <h3 class="font-extrabold text-gray-800 text-lg mb-6">Akses Cepat</h3>
 
                 <div class="space-y-4">
-                    <a href="#" class="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 hover:bg-blue-50/50 transition-all group">
-                        <div class="w-12 h-12 bg-blue-100 text-[#6376EB] rounded-xl flex items-center justify-center text-xl group-hover:bg-[#6376EB] group-hover:text-white transition-all">
+                    <a href="#"
+                        class="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 hover:bg-blue-50/50 transition-all group">
+                        <div
+                            class="w-12 h-12 bg-blue-100 text-[#6376EB] rounded-xl flex items-center justify-center text-xl group-hover:bg-[#6376EB] group-hover:text-white transition-all">
                             <i class="fa-solid fa-user-plus"></i>
                         </div>
                         <div>
@@ -284,8 +308,10 @@
                         </div>
                     </a>
 
-                    <a href="#" class="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 hover:bg-pink-50/50 transition-all group">
-                        <div class="w-12 h-12 bg-pink-100 text-pink-600 rounded-xl flex items-center justify-center text-xl group-hover:bg-pink-600 group-hover:text-white transition-all">
+                    <a href="#"
+                        class="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 hover:bg-pink-50/50 transition-all group">
+                        <div
+                            class="w-12 h-12 bg-pink-100 text-pink-600 rounded-xl flex items-center justify-center text-xl group-hover:bg-pink-600 group-hover:text-white transition-all">
                             <i class="fa-solid fa-calendar-check"></i>
                         </div>
                         <div>
@@ -294,8 +320,10 @@
                         </div>
                     </a>
 
-                    <a href="#" class="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 hover:bg-emerald-50/50 transition-all group">
-                        <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center text-xl group-hover:bg-emerald-600 group-hover:text-white transition-all">
+                    <a href="#"
+                        class="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 hover:bg-emerald-50/50 transition-all group">
+                        <div
+                            class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center text-xl group-hover:bg-emerald-600 group-hover:text-white transition-all">
                             <i class="fa-solid fa-bullhorn"></i>
                         </div>
                         <div>
