@@ -1,27 +1,34 @@
 <?php
 
-use Illuminate\Support\Facades\Route; // INI WAJIB ADA
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JurnalController;
-use App\Http\Controllers\AuthController; // Jika kamu punya controller untuk autentikasi
 
-// Halaman utama (opsional)
+// 1. Alur Awal: Saat web pertama kali dibuka, langsung arahkan ke Register!
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('register');
 });
 
-// Route Jurnal kamu
-Route::get('/jurnal/create', [JurnalController::class, 'create'])->name('jurnal.create');
-Route::post('/jurnal/store', [JurnalController::class, 'store'])->name('jurnal.store');
-Route::get('/', function () {
-    return redirect()->route('login');
-});
+// 2. Halaman Register (Tampilan & Proses Simpan)
+Route::get('/register', function () {
+    return view('auth.register'); 
+})->name('register');
 
-// Memanggil method showLogin yang mengarah ke auth.login
+// Arahkan post register ke proses simpan buatanmu (atau ke login jika hanya simulasi link)
+Route::post('/register', [JurnalController::class, 'login'])->name('register.store'); 
+
+
+// 3. Halaman Login (Menggunakan JurnalController bawaan kelompokmu)
 Route::get('/login', [JurnalController::class, 'showLogin'])->name('login');
 Route::post('/login', [JurnalController::class, 'login']);
 Route::post('/logout', [JurnalController::class, 'logout'])->name('logout');
 
-// Proteksi halaman dashboard admin
+
+// 4. Route Input Form Jurnal
+Route::get('/jurnal/create', [JurnalController::class, 'create'])->name('jurnal.create');
+Route::post('/jurnal/store', [JurnalController::class, 'store'])->name('jurnal.store');
+
+
+// 5. Proteksi Halaman Dashboard Admin
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [JurnalController::class, 'dashboardAdmin'])->name('dashboard');
     Route::get('/admin-profile-dummy', function () {
@@ -34,5 +41,4 @@ Route::middleware('auth')->group(function () {
     Route::put('/jurnal/{id}', [JurnalController::class, 'update'])->name('jurnal.update');
     
     Route::get('/rekapitulasi', [JurnalController::class, 'rekapitulasi'])->name('rekapitulasi');
-
 });
