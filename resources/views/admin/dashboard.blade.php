@@ -168,7 +168,7 @@
                         Total Siswa
                     </p>
                     <h3 class="text-2xl md:text-3xl font-black text-slate-800 tracking-tight">
-                        1.200
+                        2402
                     </h3>
                 </div>
             </div>

@@ -44,6 +44,7 @@
         </div>
 
         <div class="mt-8">
+            <a href="{{ route('profile.edit') }}">Edit Profil</a>
             <a href="{{ route('dashboard') }}" class="text-sm text-gray-500 hover:text-[#6376EB] transition">
                 <i class="fa-solid fa-arrow-left mr-2"></i> Kembali ke Dashboard
             </a>

@@ -13,6 +13,43 @@ use Illuminate\Support\Facades\Auth;
 
 class JurnalController extends Controller
 {
+    public function editProfile()
+    {
+        $user = Auth::user();
+        return view('admin.edit-profile', compact('user'));
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+        ]);
+
+        $user = Auth::user();
+        $user->update($request->only('name', 'email'));
+
+        return redirect()->route('profile')->with('success', 'Profil berhasil diperbarui!');
+    }
+
+    public function destroyProfile(Request $request)
+    {
+        $user = Auth::user(); // Ambil user yang sedang login
+
+        // 1. Logout dulu agar sesi terputus
+        Auth::logout();
+
+        // 2. Hapus user (Data jurnal akan ikut terhapus otomatis oleh database 
+        //    karena kita sudah pasang cascade di migrasi)
+        $user->delete();
+
+        // 3. Bersihkan sesi
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/')->with('success', 'Akun telah berhasil dihapus.');
+    }
+
     public function showProfile()
     {
         $user = Auth::user();
