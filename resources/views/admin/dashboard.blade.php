@@ -199,55 +199,67 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 flex-1">
 
-            <div class="lg:col-span-2 bg-white rounded-[32px] border border-gray-100 p-6 md:p-8 flex flex-col shadow-sm">
+            <div
+                class="lg:col-span-2 bg-white rounded-[32px] border border-gray-100 p-6 md:p-8 flex flex-col shadow-sm">
                 <div class="flex justify-between items-center mb-6">
-                    <h3 class="font-extrabold text-gray-800 text-lg">Entri Jurnal Terbaru</h3>
-                    <a href="#" class="text-xs font-bold text-[#6376EB] hover:underline flex items-center gap-1">
+                    <h3 class="font-extrabold text-slate-800 text-lg">Entri Jurnal Terbaru</h3>
+                    <a href="#"
+                        class="text-xs font-bold text-[#6376EB] hover:text-[#4a5bd1] transition-colors flex items-center gap-1">
                         Lihat Semua <i class="fa-solid fa-arrow-right"></i>
                     </a>
                 </div>
 
-                <div class="overflow-x-auto">
+                <div <div class="overflow-y-auto max-h-[350px] pr-2">
                     <table class="w-full text-left border-collapse">
                         <thead>
                             <tr class="border-b border-gray-100">
-                                <th class="pb-4 text-[11px] font-extrabold text-gray-400 uppercase tracking-wider">KELAS</th>
-                                <th class="pb-4 text-[11px] font-extrabold text-gray-400 uppercase tracking-wider">GURU</th>
-                                <th class="pb-4 text-[11px] font-extrabold text-gray-400 uppercase tracking-wider">MAPEL</th>
-                                <th class="pb-4 text-[11px] font-extrabold text-gray-400 uppercase tracking-wider">STATUS</th>
-                                <th class="pb-4 text-[11px] font-extrabold text-gray-400 uppercase tracking-wider">AKSI</th>
+                                <th class="pb-4 text-[11px] font-extrabold text-gray-400 uppercase tracking-wider">KELAS
+                                </th>
+                                <th class="pb-4 text-[11px] font-extrabold text-gray-400 uppercase tracking-wider">GURU
+                                </th>
+                                <th class="pb-4 text-[11px] font-extrabold text-gray-400 uppercase tracking-wider">MAPEL
+                                </th>
+                                <th class="pb-4 text-[11px] font-extrabold text-gray-400 uppercase tracking-wider">
+                                    STATUS</th>
+                                <th class="pb-4 text-[11px] font-extrabold text-gray-400 uppercase tracking-wider">AKSI
+                                </th>
                             </tr>
                         </thead>
-
-                        <tbody class="divide-y divide-gray-50">
+                        <tbody class="divide-y divide-slate-50">
                             @foreach($jurnalTerbaru as $jurnal)
                                 <tr>
                                     <td class="py-4 text-sm text-gray-600">{{ $jurnal->nama_kelas }}</td>
                                     <td class="py-4 text-sm text-gray-600">{{ $jurnal->nama_guru }}</td>
                                     <td class="py-4 text-sm text-gray-600">{{ $jurnal->mata_pelajaran }}</td>
+
                                     <td class="py-4 text-sm text-gray-600">
                                         @if($jurnal->status == 'Selesai' || $jurnal->status == 'Terisi')
-                                            <span class="bg-emerald-50 text-emerald-600 px-3 py-1 rounded-full text-[10px] font-bold uppercase">
+                                            <span
+                                                class="bg-emerald-50 text-emerald-600 px-3 py-1 rounded-full text-[10px] font-bold uppercase">
                                                 {{ $jurnal->status }}
                                             </span>
                                         @else
-                                            <span class="bg-red-50 text-red-500 px-3 py-1 rounded-full text-[10px] font-bold uppercase">
+                                            <span
+                                                class="bg-red-50 text-red-500 px-3 py-1 rounded-full text-[10px] font-bold uppercase">
                                                 {{ $jurnal->status ?? 'Belum Diisi' }}
                                             </span>
                                         @endif
                                     </td>
+
                                     <td class="py-4 text-sm text-gray-600 relative">
-                                        <button type="button" onclick="toggleDropdown(this)" class="p-2 hover:bg-gray-100 rounded-full transition">
+                                        <button type="button" onclick="toggleDropdown(this)"
+                                            class="p-2 hover:bg-gray-100 rounded-full transition">
                                             <i class="fa-solid fa-ellipsis-vertical text-gray-400"></i>
                                         </button>
 
-                                        <div class="dropdown-menu hidden absolute right-0 z-50 mt-2 w-32 bg-white border border-gray-100 rounded-xl shadow-2xl">
-                                            <form action="{{ route('jurnal.destroy', $jurnal->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                                        <div
+                                            class="dropdown-menu hidden absolute right-0 z-50 mt-2 w-32 bg-white border border-gray-100 rounded-xl shadow-2xl">
+                                            <form action="{{ route('jurnal.destroy', $jurnal->id) }}" method="POST"
+                                                onsubmit="return confirm('Yakin ingin menghapus data ini?')">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-600">
-                                                    Hapus
-                                                </button>
+                                                <button type="submit"
+                                                    class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-600">Hapus</button>
                                             </form>
                                         </div>
                                     </td>
@@ -296,7 +308,6 @@
 
         </div>
     </main>
-
 </body>
 
 <script>

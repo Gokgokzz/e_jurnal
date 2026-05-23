@@ -37,31 +37,25 @@ class JurnalController extends Controller
     // 2. Memproses Data Form Login
     public function login(Request $request)
     {
-        // Validasi input form wajib diisi
-        $request->validate([
-            'username' => 'required',
-            'password' => 'required',
+        // 1. Validasi input menggunakan email
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
         ]);
 
-        // Mengambil data user berdasarkan kolom 'name' di tabel users (sesuai database kamu)
-        $user = DB::table('users')->where('name', $request->username)->first();
-
-        // Validasi kecocokan data user dan password teks biasa (plain text)
-        if ($user && $user->password === $request->password) {
-            // Login otomatis ke sistem Laravel menggunakan ID user
-            Auth::loginUsingId($user->id);
-
-            // Menyegarkan session keamanan
+        // 2. Auth::attempt mencari di kolom 'email' (standar Laravel)
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            // Mengalihkan langsung ke halaman dashboard admin
-            return redirect()->route('dashboard');
+            // Gunakan intended agar jika user tadinya mau buka halaman lain, 
+            // setelah login langsung diarahkan ke sana
+            return redirect()->intended('dashboard');
         }
 
-        // Jika salah, dikembalikan ke form login beserta pesan peringatan
+        // 3. Jika gagal, kembalikan pesan error
         return back()->withErrors([
-            'username' => 'Username atau password yang Anda masukkan salah.',
-        ])->onlyInput('username');
+            'email' => 'Email atau password yang Anda masukkan salah.',
+        ])->onlyInput('email');
     }
 
     // 3. Menampilkan Halaman Dashboard Utama
@@ -87,7 +81,7 @@ class JurnalController extends Controller
             ->join('kelas', 'jurnals.kelas_id', '=', 'kelas.id')
             ->join('mapels', 'jurnals.mapel_id', '=', 'mapels.id')
             ->orderBy('jurnals.id', 'desc')
-            ->limit(4)
+            ->limit(10)
             ->get();
 
         // Menampilkan file view di folder resources/views/admin/dashboard.blade.php

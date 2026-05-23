@@ -86,20 +86,36 @@
                         </thead>
                         <tbody class="divide-y divide-gray-100">
                             @forelse($jurnals as $jurnal)
+                                @php
+                                    // Logika Ikon Dinamis
+                                    $namaMapel = strtolower($jurnal->mapel->nama_mapel ?? '');
+                                    if (str_contains($namaMapel, 'matematika')) {
+                                        $ikon = 'fa-calculator';
+                                    } elseif (str_contains($namaMapel, 'pemrograman') || str_contains($namaMapel, 'rpl')) {
+                                        $ikon = 'fa-code';
+                                    } elseif (str_contains($namaMapel, 'bahasa')) {
+                                        $ikon = 'fa-pen-nib';
+                                    } else {
+                                        $ikon = 'fa-book';
+                                    }
+                                @endphp
                                 <tr>
                                     <td class="py-4 font-medium text-slate-900">
                                         <div class="flex items-center gap-3">
                                             <div
                                                 class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600">
-                                                <i class="fa-solid fa-book"></i>
+                                                <i class="fa-solid {{ $ikon }}"></i>
                                             </div>
                                             {{ $jurnal->mapel->nama_mapel ?? 'Mapel Tidak Ditemukan' }}
                                         </div>
                                     </td>
+
                                     <td class="py-4 text-slate-600">{{ $jurnal->kelas->nama_kelas ?? 'Kelas -' }}</td>
-                                    <td class="py-4 text-slate-600 italic">{{ Str::limit($jurnal->materi, 30) }}</td>
+
+                                    <td class="py-4 text-slate-600 italic">{{ Str::limit($jurnal->materi, 30) ?? '-' }}</td>
+
                                     <td class="py-4">
-                                        @if($jurnal->status == 'Terisi' || $jurnal->status == 'Selesai')
+                                        @if(!empty($jurnal->materi))
                                             <span
                                                 class="bg-emerald-50 text-emerald-600 px-3 py-1 rounded-full text-[10px] font-bold uppercase">Terisi</span>
                                         @else
