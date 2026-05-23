@@ -38,7 +38,7 @@
                 </div>
                 <div class="bg-slate-50 p-4 rounded-2xl">
                     <p class="text-[10px] font-bold text-gray-400 uppercase">Terdaftar Sejak</p>
-                    <p class="text-sm font-semibold text-gray-700">{{ Auth::user()->created_at->format('d M Y') }}</p>
+                    <p class="text-sm font-semibold text-gray-700">{{ Auth::user()->created_at ? Auth::user()->created_at->format('d M Y') : 'Data belum tersedia' }}</p>
                 </div>
             </div>
         </div>

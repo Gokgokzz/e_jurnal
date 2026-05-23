@@ -108,7 +108,7 @@
 
             <div class="max-w-xl relative z-10 flex-1 text-left md:pl-20">
                 <h2 class="text-xl md:text-2xl font-semibold mb-3 leading-tight">
-                    Selamat Datang kembali, Admin!
+                    Selamat Datang kembali, {{ Auth::user()->name }}!
                 </h2>
                 <p class="text-white/80 text-xs md:text-sm font-medium leading-relaxed mb-3 md:whitespace-nowrap">
                     Pantau kehadiran guru dan siswa secara real-time. Hari ini terdapat beberapa agenda penting yang

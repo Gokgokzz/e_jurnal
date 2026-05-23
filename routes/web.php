@@ -37,4 +37,5 @@ Route::middleware('auth')->group(function () {
 
     // Rekapitulasi
     Route::get('/rekapitulasi', [JurnalController::class, 'rekapitulasi'])->name('rekapitulasi');
+    Route::get('/jurnal/{id}', [JurnalController::class, 'show'])->middleware('auth');
 });

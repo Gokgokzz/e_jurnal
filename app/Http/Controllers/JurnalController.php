@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Auth;
 
 class JurnalController extends Controller
 {
+    public function show($id)
+    {
+        $jurnal = Jurnal::with(['mapel', 'kelas', 'absensis.siswa'])->findOrFail($id);
+        return response()->json($jurnal);
+    }
     public function editProfile()
     {
         $user = Auth::user();
@@ -59,7 +64,11 @@ class JurnalController extends Controller
 
     public function rekapitulasi()
     {
-        $jurnals = \App\Models\Jurnal::with(['kelas', 'mapel'])->latest()->get();
+        // Eager loading: mengambil jurnal, serta relasi kelas, mapel, dan absensis beserta siswanya
+        $jurnals = \App\Models\Jurnal::with(['kelas', 'mapel', 'absensis.siswa'])
+            ->latest()
+            ->get();
+
         $totalSesi = \App\Models\Jurnal::count();
         $kehadiran = 94.8;
 
