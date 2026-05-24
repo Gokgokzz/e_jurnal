@@ -35,13 +35,40 @@
             </div>
 
             <div class="my-auto py-6">
-                <div class="text-center mb-8">
+                <div class="text-center mb-6">
                     <h1 class="text-3xl font-extrabold text-gray-900 mb-2 tracking-tight">Selamat Datang!</h1>
                     <p class="text-gray-500 text-xs font-semibold">Silahkan masukkan akun untuk masuk ke E-Jurnal.</p>
                 </div>
 
                 <form action="{{ route('login') }}" method="POST" class="space-y-5 max-w-[380px] mx-auto">
                     @csrf
+
+                    @if (session('success'))
+                        <div class="p-4 bg-green-50 border border-green-200 text-green-600 rounded-xl text-xs font-semibold shadow-sm">
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span>{{ session('success') }}</span>
+                            </div>
+                        </div>
+                    @endif
+
+                    @if ($errors->any())
+                        <div class="p-4 bg-red-50 border border-red-200 text-red-600 rounded-xl text-xs font-semibold shadow-sm">
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span>
+                                    @foreach ($errors->all() as $error)
+                                        {{ $error }}
+                                    @endforeach
+                                </span>
+                            </div>
+                        </div>
+                    @endif
+
                     <div>
                         <label class="block text-xs font-bold text-gray-800 mb-2 ml-1">Email</label>
                         <input type="email" name="email" value="{{ old('email') }}" placeholder="Masukkan email"
@@ -55,22 +82,16 @@
                             class="w-full px-5 py-3.5 bg-white border border-gray-200/60 rounded-xl outline-none focus:ring-2 focus:ring-blue-300 transition-all text-sm shadow-sm text-gray-700">
                     </div>
 
-                    @if ($errors->any())
-                        <div class="text-red-500 text-xs mt-2">
-                            Email atau password yang Anda masukkan salah.
-                        </div>
-                    @endif
-
                     <div class="pt-2">
                         <button type="submit"
                             class="w-full py-3.5 bg-[#6786DC] hover:bg-[#5A79D4] text-white font-bold rounded-xl shadow-md transition-all active:scale-[0.98]">
                             Masuk
                         </button>
                     </div>
+                    
                     <p class="text-center text-xs text-gray-500 mt-6">
                         Belum punya akun? <a href="{{ route('register') }}"
-                            class="text-blue-600 font-bold hover:underline">Daftar
-                            di sini</a>
+                            class="text-blue-600 font-bold hover:underline">Daftar di sini</a>
                     </p>
                 </form>
             </div>
