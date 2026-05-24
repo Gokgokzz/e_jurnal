@@ -74,7 +74,31 @@ class JurnalController extends Controller
 
         return view('admin.rekapitulasi', compact('jurnals', 'totalSesi', 'kehadiran'));
     }
+    public function rekapitulasiApi()
+    {
+        $jurnals = \App\Models\Jurnal::with(['kelas', 'mapel', 'absensis.siswa'])
+            ->latest()
+            ->get()
+            ->map(function ($jurnal) {
+                // 1. Hitung yang tidak hadir berdasarkan status di tabel absensi
+                $jurnal->total_sakit = $jurnal->absensis->where('status', 'Sakit')->count();
+                $jurnal->total_izin = $jurnal->absensis->where('status', 'Izin')->count();
+                $jurnal->total_alpa = $jurnal->absensis->where('status', 'Alpa')->count();
 
+                // 2. Ambil total seluruh siswa di kelas tersebut
+                $total_siswa_di_kelas = \App\Models\Siswa::where('kelas_id', $jurnal->kelas_id)->count();
+
+                // 3. Hitung hadir: Total siswa kelas - (Sakit + Izin + Alpa)
+                $jurnal->total_hadir = $total_siswa_di_kelas - ($jurnal->total_sakit + $jurnal->total_izin + $jurnal->total_alpa);
+
+                return $jurnal;
+            });
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $jurnals
+        ]);
+    }
     // Di dalam class Jurnal
     public function mapel()
     {
