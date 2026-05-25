@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rekapitulasi</title>
+    <link rel="icon" type="image/png" href="{{ asset('images/logo-skensa.png') }}" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -14,24 +15,29 @@
         <aside class="w-64 bg-white border-r border-slate-100 flex flex-col justify-between p-6 fixed h-full">
             <div>
                 <div class="flex items-center gap-3 mb-10 px-2">
-                    <img src="{{ asset('images/logo smk1.jpeg') }}" class="w-8 h-8" alt="Logo">
+                    <img src="{{ asset('images/logo-skensa.png') }}" class="w-8 h-8" alt="Logo">
                     <div>
                         <h1 class="font-bold text-base text-slate-900 leading-tight">E-Jurnal</h1>
                         <p class="text-xs text-slate-400 font-medium uppercase">SMKN 1 Denpasar</p>
                     </div>
                 </div>
-                <nav class="space-y-1.5">
+                <nav class="space-y-2">
                     <a href="{{ route('dashboard') }}"
-                        class="flex items-center gap-4 px-4 py-3 text-slate-400 hover:text-blue-600 rounded-xl font-medium text-sm transition">
-                        <i class="fa-solid fa-chart-pie w-5 text-center"></i> Dashboard
+                        class="flex items-center gap-3 px-4 py-3 bg-blue-50/70 text-[#6376EB] font-bold rounded-xl text-sm transition-all">
+                        <i class="fa-solid fa-house text-lg"></i>
+                        Dashboard
                     </a>
+
                     <a href="{{ route('jurnal.create') }}"
-                        class="flex items-center gap-4 px-4 py-3 text-slate-400 hover:text-blue-600 rounded-xl font-medium text-sm transition">
-                        <i class="fa-solid fa-pen-to-square w-5 text-center"></i> Input Jurnal
+                        class="flex items-center gap-4 px-4 py-3 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl font-medium text-sm transition">
+                        <span class="w-5 text-center"><i class="fa-solid fa-pen-to-square text-base"></i></span> Input
+                        Jurnal
                     </a>
-                    <a href="#"
-                        class="flex items-center gap-4 px-4 py-3 bg-blue-50 text-blue-600 rounded-xl font-semibold text-sm transition">
-                        <i class="fa-solid fa-chart-simple w-5 text-center"></i> Rekapitulasi
+
+                    <a href="{{ route('rekapitulasi') }}"
+                        class="flex items-center gap-3 px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-800 font-semibold rounded-xl text-sm transition-all">
+                        <i class="fa-solid fa-chart-simple text-lg"></i>
+                        Rekapitulasi
                     </a>
                 </nav>
             </div>
