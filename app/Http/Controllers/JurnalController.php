@@ -13,6 +13,36 @@ use Illuminate\Support\Facades\Auth;
 
 class JurnalController extends Controller
 {
+    public function showPengaturan()
+    {
+        return view('admin.pengaturan');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        // 1. Validasi Input
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required|min:8|confirmed',
+        ], [
+            'new_password.confirmed' => 'Konfirmasi kata sandi baru tidak cocok.',
+            'new_password.min' => 'Kata sandi baru minimal 8 karakter.',
+        ]);
+
+        $user = Auth::user();
+
+        // 2. Cek apakah password lama cocok
+        if (!Hash::check($request->current_password, $user->password)) {
+            return back()->withErrors(['current_password' => 'Kata sandi saat ini salah.']);
+        }
+
+        // 3. Update Password
+        $user->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+
+        return back()->with('success', 'Kata sandi berhasil diperbarui!');
+    }
     public function show($id)
     {
         $jurnal = Jurnal::with(['mapel', 'kelas', 'absensis.siswa'])->findOrFail($id);
@@ -64,15 +94,21 @@ class JurnalController extends Controller
 
     public function rekapitulasi()
     {
-        // Eager loading: mengambil jurnal, serta relasi kelas, mapel, dan absensis beserta siswanya
-        $jurnals = \App\Models\Jurnal::with(['kelas', 'mapel', 'absensis.siswa'])
-            ->latest()
-            ->get();
+        $jurnals = Jurnal::with(['kelas', 'mapel', 'absensis.siswa'])->latest()->get();
 
-        $totalSesi = \App\Models\Jurnal::count();
-        $kehadiran = 94.8;
+        // Hitung total sesi (jumlah jurnal)
+        $totalSesi = Jurnal::count(); // Tambahkan baris ini
 
-        return view('admin.rekapitulasi', compact('jurnals', 'totalSesi', 'kehadiran'));
+        // Logika Persentase Kehadiran
+        $totalSiswa = Siswa::count();
+        $totalTidakHadir = Absensi::whereIn('status', ['Sakit', 'Izin', 'Alpa'])->count();
+        $persentase = ($totalSiswa > 0) ? (($totalSiswa - $totalTidakHadir) / $totalSiswa) * 100 : 0;
+
+        return view('admin.rekapitulasi', [
+            'jurnals' => $jurnals,
+            'totalSesi' => $totalSesi, // Pastikan variabel ini dikirim
+            'kehadiran' => number_format($persentase, 1)
+        ]);
     }
     public function rekapitulasiApi()
     {
@@ -114,25 +150,22 @@ class JurnalController extends Controller
     // 2. Memproses Data Form Login
     public function login(Request $request)
     {
-        // 1. Validasi input menggunakan email
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
+        // 1. Validasi input
+        $request->validate([
+            'name' => ['required', 'string'], // Menggunakan 'name' sesuai permintaan Anda
             'password' => ['required'],
         ]);
 
-        // 2. Auth::attempt mencari di kolom 'email' (standar Laravel)
-        if (Auth::attempt($credentials)) {
+        // 2. Auth::attempt mencari kolom 'name' di tabel 'users'
+        if (Auth::attempt(['name' => $request->name, 'password' => $request->password])) {
             $request->session()->regenerate();
-
-            // Gunakan intended agar jika user tadinya mau buka halaman lain, 
-            // setelah login langsung diarahkan ke sana
             return redirect()->intended('dashboard');
         }
 
-        // 3. Jika gagal, kembalikan pesan error
+        // 3. Pesan error
         return back()->withErrors([
-            'email' => 'Email atau password yang Anda masukkan salah.',
-        ])->onlyInput('email');
+            'name' => 'Nama atau password yang Anda masukkan salah.',
+        ])->onlyInput('name');
     }
 
     // 3. Menampilkan Halaman Dashboard Utama

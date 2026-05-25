@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 // --- Group Route yang Memerlukan Login (Auth) ---
 Route::middleware('auth')->group(function () {
-    
+
     // Dashboard
     Route::get('/dashboard', [JurnalController::class, 'dashboardAdmin'])->name('dashboard');
 
@@ -26,6 +26,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/edit', [JurnalController::class, 'editProfile'])->name('profile.edit');
     Route::post('/profile/update', [JurnalController::class, 'updateProfile'])->name('profile.update');
     Route::delete('/profile/destroy', [JurnalController::class, 'destroyProfile'])->name('profile.destroy');
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/pengaturan', [JurnalController::class, 'showPengaturan'])->name('pengaturan');
+        Route::post('/pengaturan/password', [JurnalController::class, 'updatePassword'])->name('pengaturan.password');
+    });
 
     // Jurnal & API
     Route::get('/api/kelas/{kelas_id}/siswa', [JurnalController::class, 'getSiswaByKelas']);
