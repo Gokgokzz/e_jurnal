@@ -73,10 +73,6 @@
             </div>
 
             <div class="flex items-center gap-6">
-                <button class="relative text-gray-400 hover:text-gray-600 transition-all">
-                    <i class="fa-solid fa-bell text-xl"></i>
-                    <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
-                </button>
                 <div class="flex items-center gap-3">
                     <a href="{{ route('profile') }}"
                         class="flex items-center gap-3 hover:opacity-80 transition-opacity">
@@ -231,7 +227,7 @@
                     </a>
                 </div>
 
-                <div <div class="overflow-y-auto max-h-[350px] pr-2">
+                <div class="overflow-y-auto max-h-[350px] pr-2">
                     <table class="w-full text-left border-collapse">
                         <thead>
                             <tr class="border-b border-gray-100">
