@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
     // Settings
     Route::get('/pengaturan', [JurnalController::class, 'showPengaturan'])->name('pengaturan');
     Route::post('/pengaturan/password', [JurnalController::class, 'updatePassword'])->name('pengaturan.password');
+    Route::put('/pengaturan/password', [JurnalController::class, 'updatePassword'])->name('password.update');
 
     // Jurnal Management
     Route::get('/api/kelas/{kelas_id}/siswa', [JurnalController::class, 'getSiswaByKelas']);
@@ -46,5 +47,4 @@ Route::middleware('auth')->group(function () {
 
     // Rekapitulasi
     Route::get('/rekapitulasi', [JurnalController::class, 'rekapitulasi'])->name('rekapitulasi');
-    Route::put('/pengaturan/password', [JurnalController::class, 'updatePassword'])->name('password.update');
 });

@@ -102,13 +102,14 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                     @forelse($jurnals as $jurnal)
-                        <div
-                            class="bg-white p-6 rounded-[20px] shadow-sm border border-slate-50 hover:shadow-md transition-shadow">
+                        <div onclick="openModal({{ $jurnal->id }})"
+                            class="bg-white p-6 rounded-[20px] shadow-sm border border-slate-50 hover:shadow-md transition-shadow cursor-pointer">
+
                             <div class="flex justify-between items-start mb-4">
-                                <span class="bg-blue-100 px-1.5 py-1 shapes-full text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                                <span
+                                    class="bg-blue-100 px-1.5 py-1 shapes-full text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                                     {{ $jurnal->kelas->nama_kelas ?? 'Kelas -' }}
                                 </span>
-
                                 @if(!empty(trim($jurnal->materi)))
                                     <span
                                         class="bg-emerald-50 text-emerald-600 px-3 py-1 rounded-full text-[10px] font-bold uppercase">Terisi</span>
@@ -123,6 +124,14 @@
                                 {{ $jurnal->mapel->nama_mapel ?? 'Mapel Tidak Ditemukan' }}
                             </h3>
 
+                            <div class="flex items-center gap-2 mb-4 text-slate-600">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span class="text-sm font-semibold">{{ $jurnal->formatted_jam }}</span>
+                            </div>
+
                             <div class="text-slate-500 text-xs leading-relaxed line-clamp-3 mb-4">
                                 <span class="font-bold text-slate-700">Materi:</span>
                                 {{ $jurnal->materi ?? 'Belum ada ringkasan materi.' }}
@@ -134,16 +143,68 @@
                             </div>
                         </div>
                     @empty
-                        <div
-                            class="col-span-full py-10 text-center text-slate-400 bg-white rounded-[20px] border border-dashed border-slate-200">
-                            <i class="fa-solid fa-inbox text-3xl mb-2 opacity-50"></i>
-                            <p>Belum ada data jurnal yang tersedia.</p>
-                        </div>
                     @endforelse
                 </div>
             </div>
         </main>
     </div>
+    <div id="absensiModal"
+        class="fixed inset-0 z-50 flex items-center justify-center hidden bg-black/50 backdrop-blur-sm p-4">
+        <div class="bg-white rounded-[30px] w-full max-w-sm p-8 shadow-xl relative">
+            <button onclick="closeModal()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-600">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <h3 class="font-bold text-slate-800 text-lg mb-6">Siswa Tidak Hadir</h3>
+            <div id="modalContent" class="space-y-3">
+                <p class="text-center text-slate-400">Memuat data...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById('absensiModal');
+        const modalContent = document.getElementById('modalContent');
+
+        function openModal(id) {
+            modal.classList.remove('hidden');
+            modalContent.innerHTML = '<p class="text-center">Memuat data...</p>';
+
+            // Mengambil data jurnal berdasarkan ID
+            fetch(`/jurnal/${id}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Data yang diterima:", data);
+                    // Asumsi data absensi ada di properti 'absensis'
+                    const absensi = data.absensis || [];
+                    const tidakHadir = absensi.filter(a => a.status !== 'Hadir');
+
+                    if (tidakHadir.length > 0) {
+                        let html = '<ul class="space-y-2">';
+                        tidakHadir.forEach(item => {
+                            // Perbaikan: Gunakan ?. dan || untuk menangani jika siswa tidak ada
+                            const namaSiswa = item.siswa?.nama_siswa || 'Nama Tidak Diketahui';
+                            
+                            html += `
+                            <li class="flex justify-between items-center bg-red-50 p-3 rounded-xl">
+                                <span class="font-medium text-slate-700 text-sm">${namaSiswa}</span>
+                                <span class="text-[10px] font-bold text-red-500 bg-white px-2 py-1 rounded-lg">${item.status}</span>
+                            </li>`;
+                        });
+                        html += '</ul>';
+                        modalContent.innerHTML = html;
+                    } else {
+                        modalContent.innerHTML = '<p class="text-center text-emerald-600 font-bold">Semua siswa hadir!</p>';
+                    }
+                })
+                .catch(() => {
+                    modalContent.innerHTML = '<p class="text-center text-red-500">Gagal memuat data.</p>';
+                });
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+        }
+    </script>
 </body>
 
 </html>

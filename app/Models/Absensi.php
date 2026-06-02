@@ -7,10 +7,9 @@ class Absensi extends Model
 {
     protected $fillable = ['jurnal_id', 'siswa_id', 'status'];
 
+    // Di dalam class Absensi
     public function siswa()
     {
-        // Parameter 'siswa_id' adalah foreign key di tabel absensis
-        // Parameter 'id' adalah primary key di tabel siswas
-        return $this->belongsTo(Siswa::class, 'siswa_id', 'id');
+        return $this->belongsTo(Siswa::class, 'siswa_id');
     }
 }

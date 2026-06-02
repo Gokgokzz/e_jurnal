@@ -210,7 +210,7 @@
                                 <p class="text-white/60 text-xs mt-0.5">Hubungi IT Support SMK Negeri 1 Denpasar</p>
                             </div>
                         </div>
-                        <a href="https://wa.me/62812345678" target="_blank"
+                        <a href="https://wa.me/6289634912424" target="_blank"
                             class="px-6 py-2.5 bg-white text-[#0F296B] font-bold text-xs rounded-xl hover:bg-gray-50 transition-all whitespace-nowrap shadow-sm">
                             Hubungi Tim
                         </a>

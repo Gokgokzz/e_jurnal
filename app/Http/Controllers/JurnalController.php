@@ -12,13 +12,12 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-
 class JurnalController extends Controller
-{   
+{
     // ==========================================
     // PENGATURAN & PROFIL
     // ==========================================
-    
+
     public function showPengaturan()
     {
         return view('admin.pengaturan');
@@ -119,7 +118,13 @@ class JurnalController extends Controller
             ->limit(10)
             ->get();
 
-        return view('admin.dashboard', compact('jurnalTerbaru', 'totalJurnalHariIni', 'totalKelas', 'guruAktif', 'totalSiswa'));
+        return view('admin.dashboard', compact(
+            'jurnalTerbaru',
+            'totalJurnalHariIni',
+            'totalKelas',
+            'guruAktif',
+            'totalSiswa'
+        ));
     }
 
     public function create()
@@ -172,7 +177,7 @@ class JurnalController extends Controller
 
     public function show($id)
     {
-        $jurnal = Jurnal::with(['mapel', 'kelas', 'absensis.siswa'])->findOrFail($id);
+        $jurnal = Jurnal::with('absensis.siswa')->findOrFail($id);
         return response()->json($jurnal);
     }
 
@@ -200,7 +205,7 @@ class JurnalController extends Controller
             'jurnals' => $jurnals,
             'totalSesi' => $totalSesi,
             'kehadiran' => number_format($persentase, 1)
-        ]); 
+        ]);
     }
 
     public function rekapitulasiApi()

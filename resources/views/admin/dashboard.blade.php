@@ -93,7 +93,7 @@
             <div class="absolute -bottom-6 right-36 w-16 h-16 bg-white/15 rounded-xl -rotate-12 pointer-events-none">
             </div>
 
-            
+
 
             <div class="max-w-xl relative z-10 flex-1 text-left md:pl-20">
                 <h2 class="text-xl md:text-2xl font-semibold mb-3 leading-tight">
@@ -205,10 +205,10 @@
 
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 flex-1">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
 
             <div
-                class="lg:col-span-2 bg-white rounded-[32px] border border-gray-100 p-6 md:p-8 flex flex-col shadow-sm">
+                class="md:col-span-2 bg-white rounded-[32px] border border-gray-100 p-6 md:p-8 flex flex-col shadow-sm">
                 <div class="flex justify-between items-center mb-6">
                     <h3 class="font-extrabold text-slate-800 text-lg">Entri Jurnal Terbaru</h3>
                     <a href="#"
@@ -239,7 +239,6 @@
                                     <td class="py-4 text-sm text-gray-600">{{ $jurnal->nama_kelas }}</td>
                                     <td class="py-4 text-sm text-gray-600">{{ $jurnal->nama_guru }}</td>
                                     <td class="py-4 text-sm text-gray-600">{{ $jurnal->mata_pelajaran }}</td>
-
                                     <td class="py-4 text-sm text-gray-600">
                                         @if($jurnal->status == 'Selesai' || $jurnal->status == 'Terisi')
                                             <span
@@ -253,13 +252,11 @@
                                             </span>
                                         @endif
                                     </td>
-
                                     <td class="py-4 text-sm text-gray-600 relative">
                                         <button type="button" onclick="toggleDropdown(this)"
                                             class="p-2 hover:bg-gray-100 rounded-full transition">
                                             <i class="fa-solid fa-ellipsis-vertical text-gray-400"></i>
                                         </button>
-
                                         <div
                                             class="dropdown-menu hidden absolute right-0 z-50 mt-2 w-32 bg-white border border-gray-100 rounded-xl shadow-2xl">
                                             <form action="{{ route('jurnal.destroy', $jurnal->id) }}" method="POST"
@@ -280,7 +277,6 @@
 
             <div class="bg-white rounded-[32px] border border-gray-100 p-6 md:p-8 shadow-sm">
                 <h3 class="font-extrabold text-gray-800 text-lg mb-6">Akses Cepat</h3>
-
                 <div class="space-y-4">
                     <a href="{{ route('register') }}"
                         class="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 hover:bg-blue-50/50 transition-all group">
