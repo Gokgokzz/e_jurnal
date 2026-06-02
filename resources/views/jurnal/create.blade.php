@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Input Jurnal Harian - E-Jurnal</title>
+    <title>Input Jurnal</title>
+    <link rel="icon" type="image/png" href="{{ asset('images/logo-skensa.png') }}" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -15,7 +16,7 @@
         <aside class="w-64 bg-white border-r border-slate-100 flex flex-col justify-between p-6 fixed h-full">
             <div>
                 <div class="flex items-center gap-3 mb-10 px-2">
-                    <img src="{{ asset('images/logo smk1.jpeg') }}" class="w-8 h-8" alt="Logo">
+                    <img src="{{ asset('images/logo-skensa.png') }}" class="w-8 h-8" alt="Logo">
                     <div>
                         <h1 class="font-bold text-base text-slate-900 leading-tight">E-Jurnal</h1>
                         <p class="text-xs text-slate-400 font-medium uppercase">SMKN 1 Denpasarr</p>
