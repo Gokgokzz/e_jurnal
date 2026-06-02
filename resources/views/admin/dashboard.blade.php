@@ -40,7 +40,7 @@
                 </a>
 
                 <a href="{{ route('jurnal.create') }}"
-                    class="flex items-center gap-4 px-4 py-3 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl font-medium text-sm transition">
+                    class="flex items-center gap-3 px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-800 font-semibold rounded-xl text-sm transition-all">
                     <span class="w-5 text-center"><i class="fa-solid fa-pen-to-square text-base"></i></span> Input
                     Jurnal
                 </a>
@@ -49,6 +49,12 @@
                     class="flex items-center gap-3 px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-800 font-semibold rounded-xl text-sm transition-all">
                     <i class="fa-solid fa-chart-simple text-lg"></i>
                     Rekapitulasi
+                </a>
+
+                <a href="{{ route('pengaturan') }}"
+                    class="flex items-center gap-3 px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-800 font-semibold rounded-xl text-sm transition-all">
+                    <i class="fas fa-cog text-[#2D3E75]"></i>
+                    Pengaturan
                 </a>
             </nav>
         </div>
@@ -80,7 +86,7 @@
                             <p class="text-sm font-bold text-gray-800">{{ Auth::user()->name ?? 'Admin SMK' }}</p>
                             <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Administrator</p>
                         </div>
-                        <div
+                        <div 
                             class="w-10 h-10 bg-[#7A95E8] text-white rounded-full flex items-center justify-center font-bold text-sm shadow-md">
                             {{ substr(Auth::user()->name, 0, 2) }}
                         </div>
@@ -111,14 +117,11 @@
                     perlu divalidasi.
                 </p>
                 <div class="flex flex-wrap gap-3">
-                    <button
+                    <a href="{{ route('rekapitulasi') }}" <button
                         class="px-5 py-2.5 bg-white text-[#6376EB] font-semibold rounded-xl text-xs hover:bg-opacity-90 transition-all shadow-sm">
                         Lihat Jadwal
-                    </button>
-                    <button
-                        class="px-5 py-2.5 bg-white/20 border border-white/10 text-white font-semibold rounded-xl text-xs hover:bg-white/30 transition-all">
-                        Download Laporan
-                    </button>
+                        </button>
+                    </a>
                 </div>
             </div>
         </section>
@@ -292,41 +295,19 @@
                 <h3 class="font-extrabold text-gray-800 text-lg mb-6">Akses Cepat</h3>
 
                 <div class="space-y-4">
-                    <a href="#"
+                    <a href="{{ route('register') }}"
                         class="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 hover:bg-blue-50/50 transition-all group">
                         <div
                             class="w-12 h-12 bg-blue-100 text-[#6376EB] rounded-xl flex items-center justify-center text-xl group-hover:bg-[#6376EB] group-hover:text-white transition-all">
                             <i class="fa-solid fa-user-plus"></i>
                         </div>
                         <div>
-                            <h4 class="font-bold text-gray-800 text-sm">Kelola Data Guru</h4>
-                            <p class="text-xs text-gray-400 font-medium mt-0.5">Tambah & atur akun pendidik</p>
+                            <h4 class="font-bold text-gray-800 text-sm">Tambah Guru</h4>
+                            <p class="text-xs text-gray-400 font-medium mt-0.5">Input data pengajar baru</p>
                         </div>
                     </a>
 
-                    <a href="#"
-                        class="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 hover:bg-pink-50/50 transition-all group">
-                        <div
-                            class="w-12 h-12 bg-pink-100 text-pink-600 rounded-xl flex items-center justify-center text-xl group-hover:bg-pink-600 group-hover:text-white transition-all">
-                            <i class="fa-solid fa-calendar-check"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-gray-800 text-sm">Sinkronisasi Jadwal</h4>
-                            <p class="text-xs text-gray-400 font-medium mt-0.5">Import data mata pelajaran</p>
-                        </div>
-                    </a>
-
-                    <a href="#"
-                        class="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 hover:bg-emerald-50/50 transition-all group">
-                        <div
-                            class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center text-xl group-hover:bg-emerald-600 group-hover:text-white transition-all">
-                            <i class="fa-solid fa-bullhorn"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-gray-800 text-sm">Kirim Pengumuman</h4>
-                            <p class="text-xs text-gray-400 font-medium mt-0.5">Broadcast info ke guru/kelas</p>
-                        </div>
-                    </a>
+                    
                 </div>
             </div>
 

@@ -46,5 +46,5 @@ Route::middleware('auth')->group(function () {
 
     // Rekapitulasi
     Route::get('/rekapitulasi', [JurnalController::class, 'rekapitulasi'])->name('rekapitulasi');
-
+    Route::put('/pengaturan/password', [JurnalController::class, 'updatePassword'])->name('password.update');
 });

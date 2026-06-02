@@ -39,6 +39,12 @@
                         <i class="fa-solid fa-chart-simple text-lg"></i>
                         Rekapitulasi
                     </a>
+
+                    <a href="{{ route('pengaturan') }}"
+                        class="flex items-center gap-3 px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-800 font-semibold rounded-xl text-sm transition-all">
+                        <i class="fas fa-cog text-[#2D3E75]"></i>
+                        Pengaturan
+                    </a>
                 </nav>
             </div>
             <form method="POST" action="{{ route('logout') }}">

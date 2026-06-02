@@ -1,240 +1,40 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
-use App\Models\Jurnal;
-use App\Models\Kelas;
-use App\Models\Mapel;
-use App\Models\Siswa;
-use App\Models\Absensi;
+use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rules;
 
-class JurnalController extends Controller
+class RegisteredUserController extends Controller
 {
-    // ==========================================
-    // AUTHENTICATION
-    // ==========================================
-    public function showLogin()
-    {
-        return view('auth.login');
-    }
-
-    public function login(Request $request)
-    {
-        $request->validate([
-            'name'     => ['required', 'string'],
-            'password' => ['required'],
-        ]);
-
-        if (Auth::attempt(['name' => $request->name, 'password' => $request->password])) {
-            $request->session()->regenerate();
-            return redirect()->intended('dashboard');
-        }
-
-        return back()->withErrors([
-            'name' => 'Nama atau password yang Anda masukkan salah.',
-        ])->onlyInput('name');
-    }
-
-    public function logout(Request $request)
-    {
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return redirect('/login');
-    }
-
-    // ==========================================
-    // DASHBOARD & UTILS
-    // ==========================================
-    public function dashboardAdmin()
-    {
-        $totalJurnalHariIni = DB::table('jurnals')->whereDate('tanggal', today())->count();
-        $totalSiswa         = DB::table('siswas')->count();
-        $guruAktif          = DB::table('users')->count();
-        $totalKelas         = DB::table('kelas')->count();
-
-        $jurnalTerbaru = DB::table('jurnals')
-            ->select(
-                'jurnals.id',
-                'kelas.nama_kelas',
-                'users.name as nama_guru',
-                'mapels.nama_mapel as mata_pelajaran',
-                'jurnals.jam_pelajaran',
-                DB::raw("CASE WHEN jurnals.materi IS NOT NULL AND jurnals.materi != '' THEN 'Terisi' ELSE 'Belum Terisi' END as status")
-            )
-            ->leftJoin('users', 'jurnals.user_id', '=', 'users.id')
-            ->join('kelas', 'jurnals.kelas_id', '=', 'kelas.id')
-            ->join('mapels', 'jurnals.mapel_id', '=', 'mapels.id')
-            ->orderBy('jurnals.id', 'desc')
-            ->limit(10)
-            ->get();
-
-        return view('admin.dashboard', compact('jurnalTerbaru', 'totalJurnalHariIni', 'totalKelas', 'guruAktif', 'totalSiswa'));
-    }
-
-    public function getSiswaByKelas($kelas_id)
-    {
-        $siswas = Siswa::where('kelas_id', $kelas_id)->orderBy('no_absen', 'asc')->get();
-        return response()->json($siswas);
-    }
-
-    // ==========================================
-    // JURNAL CRUD
-    // ==========================================
     public function create()
     {
-        $data_kelas  = Kelas::all();
-        $data_mapel  = Mapel::all();
-        $data_siswa  = Siswa::all();
-        return view('jurnal.create', compact('data_kelas', 'data_mapel', 'data_siswa'));
+        return view('auth.register');
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'tanggal'       => 'required|date',
-            'kelas_id'      => 'required',
-            'mapel_id'      => 'required',
-            'jam_pelajaran' => 'required',
-            'materi'        => 'nullable',
+            'name' => ['required', 'string', 'max:255'],
+            'nip' => ['required', 'string', 'max:20', 'unique:users'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        DB::transaction(function () use ($request) {
-            $jurnal = Jurnal::create([
-                'tanggal'       => $request->tanggal,
-                'user_id'       => Auth::id(),
-                'mapel_id'      => $request->mapel_id,
-                'kelas_id'      => $request->kelas_id,
-                'jam_pelajaran' => $request->jam_pelajaran,
-                'pertemuan_ke'  => $request->pertemuan_ke ?? 1,
-                'materi'        => $request->materi,
-            ]);
-
-            if ($request->has('absensi')) {
-                foreach ($request->absensi as $siswa_id => $status) {
-                    if ($status !== 'Hadir') {
-                        Absensi::create([
-                            'jurnal_id' => $jurnal->id,
-                            'siswa_id'  => $siswa_id,
-                            'status'    => ($status === 'Alfa') ? 'Alpa' : $status,
-                        ]);
-                    }
-                }
-            }
-        });
-
-        return redirect()->route('jurnal.create')->with('success', 'Jurnal Berhasil Disimpan!');
-    }
-
-    public function show($id)
-    {
-        $jurnal = Jurnal::with(['mapel', 'kelas', 'absensis.siswa'])->findOrFail($id);
-        return response()->json($jurnal);
-    }
-
-    public function destroy($id)
-    {
-        Jurnal::findOrFail($id)->delete();
-        return redirect()->back()->with('success', 'Data berhasil dihapus!');
-    }
-
-    // ==========================================
-    // REKAPITULASI
-    // ==========================================
-    public function rekapitulasi()
-    {
-        $jurnals         = Jurnal::with(['kelas', 'mapel', 'absensis.siswa'])->latest()->get();
-        $totalSesi       = Jurnal::count();
-        $totalSiswa      = Siswa::count();
-        $totalTidakHadir = Absensi::whereIn('status', ['Sakit', 'Izin', 'Alpa'])->count();
-        $persentase      = ($totalSiswa > 0) ? (($totalSiswa - $totalTidakHadir) / $totalSiswa) * 100 : 0;
-
-        return view('admin.rekapitulasi', [
-            'jurnals'   => $jurnals,
-            'totalSesi' => $totalSesi,
-            'kehadiran' => number_format($persentase, 1)
-        ]);
-    }
-
-    public function rekapitulasiApi()
-    {
-        $jurnals = Jurnal::with(['kelas', 'mapel', 'absensis.siswa'])
-            ->latest()
-            ->get()
-            ->map(function ($jurnal) {
-                $jurnal->total_sakit = $jurnal->absensis->where('status', 'Sakit')->count();
-                $jurnal->total_izin  = $jurnal->absensis->where('status', 'Izin')->count();
-                $jurnal->total_alpa  = $jurnal->absensis->where('status', 'Alpa')->count();
-                
-                $total_siswa_di_kelas = Siswa::where('kelas_id', $jurnal->kelas_id)->count();
-                $jurnal->total_hadir  = $total_siswa_di_kelas - ($jurnal->total_sakit + $jurnal->total_izin + $jurnal->total_alpa);
-
-                return $jurnal;
-            });
-
-        return response()->json(['status' => 'success', 'data' => $jurnals]);
-    }
-
-    // ==========================================
-    // PROFIL & PENGATURAN
-    // ==========================================
-    public function showProfile()
-    {
-        $user = Auth::user();
-        return view('admin.profile', compact('user'));
-    }
-
-    public function editProfile()
-    {
-        $user = Auth::user();
-        return view('admin.edit-profile', compact('user'));
-    }
-
-    public function updateProfile(Request $request)
-    {
-        $request->validate([
-            'name'  => 'required|string|max:255',
-            'email' => 'required|email|max:255',
+        $user = User::create([
+            'name' => $request->name,
+            'nip' => $request->nip,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
         ]);
 
-        Auth::user()->update($request->only('name', 'email'));
-        return redirect()->route('profile')->with('success', 'Profil berhasil diperbarui!');
-    }
+        event(new Registered($user));
 
-    public function showPengaturan()
-    {
-        return view('admin.pengaturan');
-    }
-
-    public function updatePassword(Request $request)
-    {
-        $request->validate([
-            'current_password' => 'required',
-            'new_password'     => 'required|min:8|confirmed',
-        ], [
-            'new_password.confirmed' => 'Konfirmasi kata sandi baru tidak cocok.',
-            'new_password.min'       => 'Kata sandi baru minimal 8 karakter.',
-        ]);
-
-        if (!Hash::check($request->current_password, Auth::user()->password)) {
-            return back()->withErrors(['current_password' => 'Kata sandi saat ini salah.']);
-        }
-
-        Auth::user()->update(['password' => Hash::make($request->new_password)]);
-        return back()->with('success', 'Kata sandi berhasil diperbarui!');
-    }
-
-    public function destroyProfile(Request $request)
-    {
-        $user = Auth::user();
-        Auth::logout();
-        $user->delete();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return redirect('/')->with('success', 'Akun telah berhasil dihapus.');
+        return redirect('/login')->with('success', 'Pendaftaran berhasil! Silakan masuk menggunakan NIP/Email dan password Anda.');
     }
 }

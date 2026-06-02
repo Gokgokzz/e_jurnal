@@ -12,8 +12,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
+
 class JurnalController extends Controller
-{
+{   
     // ==========================================
     // PENGATURAN & PROFIL
     // ==========================================
@@ -199,7 +200,7 @@ class JurnalController extends Controller
             'jurnals' => $jurnals,
             'totalSesi' => $totalSesi,
             'kehadiran' => number_format($persentase, 1)
-        ]);
+        ]); 
     }
 
     public function rekapitulasiApi()
