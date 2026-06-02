@@ -13,7 +13,7 @@
 <body class="bg-[#F4F7FE] text-slate-800 font-sans antialiased">
 
     <div class="flex min-h-screen">
-        <aside class="w-64 bg-white border-r border-slate-100 flex flex-col justify-between p-6 fixed h-full">
+        <aside class="w-64 bg-white border-r border-gray-100 flex flex-col justify-between p-6 hidden md:flex">
             <div>
                 <div class="flex items-center gap-3 mb-10 px-2">
                     <img src="{{ asset('images/logo-skensa.png') }}" class="w-8 h-8" alt="Logo">
@@ -22,19 +22,20 @@
                         <p class="text-xs text-slate-400 font-medium uppercase">SMKN 1 Denpasar</p>
                     </div>
                 </div>
-                <nav class="space-y-1.5">
+                <nav class="space-y-2">
                     <a href="{{ route('dashboard') }}"
-                        class="flex items-center gap-4 px-4 py-3 text-slate-400 hover:text-blue-600 rounded-xl font-medium text-sm transition">
-                        <span class="w-5 text-center"> <i class="fa-solid fa-house text-lg"></i></span> Dashboard
+                        class="flex items-center gap-3 px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-800 font-semibold rounded-xl text-sm transition-all">
+                        <i class="fa-solid fa-house text-lg"></i>
+                        Dashboard
                     </a>
                     <a href="{{ route('jurnal.create') }}"
-                        class="flex items-center gap-4 px-4 py-3 bg-blue-50 text-blue-600 rounded-xl font-semibold text-sm transition">
+                        class="flex items-center gap-3 px-4 py-3 bg-blue-50/70 text-[#6376EB] font-bold rounded-xl text-sm transition-all">
                         <span class="w-5 text-center"><i class="fa-solid fa-pen-to-square text-base"></i></span> Input
                         Jurnal
                     </a>
                     <a href="{{ route('rekapitulasi') }}"
-                        class="flex items-center gap-4 px-4 py-3 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl font-medium text-sm transition">
-                        <span class="w-5 text-center"><i class="fa-solid fa-chart-simple text-lg"></i></span>
+                        class="flex items-center gap-3 px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-800 font-semibold rounded-xl text-sm transition-all">
+                        <i class="fa-solid fa-chart-simple text-lg"></i>
                         Rekapitulasi
                     </a>
                     <a href="{{ route('pengaturan') }}"
@@ -53,14 +54,32 @@
             </form>
         </aside>
 
-        <main class="flex-1 ml-64 p-8">
+        <main class="flex-1 flex flex-col min-w-0 overflow-y-auto p-6 md:p-10">
             <header class="flex justify-between items-center mb-8">
                 <div>
-                    <nav class="flex text-slate-400 text-[10px] font-bold uppercase tracking-widest mb-1">
-                        <a href="{{ route('dashboard') }}" class="hover:text-blue-600">Dashboard</a>
-                        <span class="mx-2">/</span>
-                        <span class="text-slate-600">Input Jurnal</span>
-                    </nav>
+                    <h1 class="text-xs font-extrabold text-gray-400 uppercase tracking-widest">Input Jurnal</h1>
+                </div>
+
+                <div class="flex items-center gap-6">
+                    <div class="flex items-center gap-3">
+                        <a href="{{ route('profile') }}"
+                            class="flex items-center gap-3 hover:opacity-80 transition-opacity">
+                            <div class="text-right">
+                                <p class="text-sm font-bold text-gray-800">{{ Auth::user()->name ?? 'Admin SMK' }}</p>
+                                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Administrator</p>
+                            </div>
+                            <div
+                                class="w-10 h-10 bg-[#7A95E8] text-white rounded-full flex items-center justify-center font-bold text-sm shadow-md">
+                                {{ substr(Auth::user()->name, 0, 2) }}
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </header>
+
+            <header class="flex justify-between items-center mb-8">
+                <div>
+                    
                     <h2 class="text-2xl font-bold text-slate-900">Form Input Jurnal Harian</h2>
                 </div>
             </header>

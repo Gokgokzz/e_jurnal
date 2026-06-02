@@ -7,17 +7,9 @@
     <title>Dashboard</title>
     <link rel="icon" type="image/png" href="{{ asset('images/logo-skensa.png') }}" />
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap"
-        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <style>
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #F8FAFC;
-        }
-    </style>
+
 </head>
 
 <body class="min-h-screen flex">
@@ -86,7 +78,7 @@
                             <p class="text-sm font-bold text-gray-800">{{ Auth::user()->name ?? 'Admin SMK' }}</p>
                             <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Administrator</p>
                         </div>
-                        <div 
+                        <div
                             class="w-10 h-10 bg-[#7A95E8] text-white rounded-full flex items-center justify-center font-bold text-sm shadow-md">
                             {{ substr(Auth::user()->name, 0, 2) }}
                         </div>
@@ -101,12 +93,7 @@
             <div class="absolute -bottom-6 right-36 w-16 h-16 bg-white/15 rounded-xl -rotate-12 pointer-events-none">
             </div>
 
-            <div
-                class="relative flex justify-center md:justify-start items-end h-40 md:h-48 w-full md:w-auto flex-shrink-0">
-                <img src="{{ asset('images/siswa.png') }}"
-                    class="h-full w-auto object-contain object-bottom select-none pointer-events-none z-10"
-                    alt="Ilustrasi Siswa">
-            </div>
+            
 
             <div class="max-w-xl relative z-10 flex-1 text-left md:pl-20">
                 <h2 class="text-xl md:text-2xl font-semibold mb-3 leading-tight">
@@ -306,8 +293,6 @@
                             <p class="text-xs text-gray-400 font-medium mt-0.5">Input data pengajar baru</p>
                         </div>
                     </a>
-
-                    
                 </div>
             </div>
 

@@ -13,7 +13,7 @@
 <body class="bg-[#F4F7FE] text-slate-800 font-sans antialiased">
 
     <div class="flex min-h-screen">
-        <aside class="w-64 bg-white border-r border-slate-100 flex flex-col justify-between p-6 fixed h-full">
+        <aside class="w-64 bg-white border-r border-gray-100 flex flex-col justify-between p-6 hidden md:flex">
             <div>
                 <div class="flex items-center gap-3 mb-10 px-2">
                     <img src="{{ asset('images/logo smk1.jpeg') }}" class="w-8 h-8" alt="Logo">
@@ -22,19 +22,20 @@
                         <p class="text-xs text-slate-400 font-medium uppercase">SMKN 1 Denpasar</p>
                     </div>
                 </div>
-                <nav class="space-y-1.5">
+                <nav class="space-y-2">
                     <a href="{{ route('dashboard') }}"
-                        class="flex items-center gap-4 px-4 py-3 text-slate-400 hover:text-blue-600 rounded-xl font-medium text-sm transition">
-                        <span class="w-5 text-center"><i class="fa-solid fa-chart-pie text-base"></i></span> Dashboard
+                        class="flex items-center gap-3 px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-800 font-semibold rounded-xl text-sm transition-all">
+                        <i class="fa-solid fa-house text-lg"></i>
+                        Dashboard
                     </a>
                     <a href="{{ route('jurnal.create') }}"
-                        class="flex items-center gap-4 px-4 py-3 text-slate-400 hover:text-blue-600 rounded-xl font-medium text-sm transition">
+                        class="flex items-center gap-3 px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-800 font-semibold rounded-xl text-sm transition-all">
                         <span class="w-5 text-center"><i class="fa-solid fa-pen-to-square text-base"></i></span> Input
                         Jurnal
                     </a>
                     <a href="#"
-                        class="flex items-center gap-4 px-4 py-3 bg-blue-50 text-blue-600 rounded-xl font-semibold text-sm transition">
-                        <span class="w-5 text-center"><i class="fa-solid fa-chart-simple text-lg"></i></span>
+                        class="flex items-center gap-3 px-4 py-3 bg-blue-50/70 text-[#6376EB] font-bold rounded-xl text-sm transition-all">
+                        <i class="fa-solid fa-chart-simple text-lg"></i>
                         Rekapitulasi
                     </a>
 
@@ -55,13 +56,32 @@
             </form>
         </aside>
 
-        <main class="flex-1 ml-64 p-8">
+        <main class="flex-1 flex flex-col min-w-0 overflow-y-auto p-6 md:p-10">
+            <header class="flex justify-between items-center mb-8">
+                <div>
+                    <h1 class="text-xs font-extrabold text-gray-400 uppercase tracking-widest">Rekapitulasi</h1>
+                </div>
+
+                <div class="flex items-center gap-6">
+                    <div class="flex items-center gap-3">
+                        <a href="{{ route('profile') }}"
+                            class="flex items-center gap-3 hover:opacity-80 transition-opacity">
+                            <div class="text-right">
+                                <p class="text-sm font-bold text-gray-800">{{ Auth::user()->name ?? 'Admin SMK' }}</p>
+                                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Administrator
+                                </p>
+                            </div>
+                            <div
+                                class="w-10 h-10 bg-[#7A95E8] text-white rounded-full flex items-center justify-center font-bold text-sm shadow-md">
+                                {{ substr(Auth::user()->name, 0, 2) }}
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </header>
+
             <header class="mb-8">
-                <nav class="flex text-slate-400 text-[10px] font-bold uppercase tracking-widest mb-1">
-                    <a href="{{ route('dashboard') }}" class="hover:text-blue-600">Dashboard</a>
-                    <span class="mx-2">/</span>
-                    <span class="text-slate-600">Rekapitulasi</span>
-                </nav>
+
                 <h2 class="text-2xl font-bold text-slate-900">Rekapitulasi Jurnal Mengajar</h2>
             </header>
 
@@ -80,48 +100,46 @@
             <div class="bg-white p-8 rounded-[30px] shadow-sm border border-slate-50">
                 <h4 class="font-bold text-slate-800 mb-6">Riwayat Jurnal Terakhir</h4>
 
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left text-sm border-collapse">
-                        <thead>
-                            <tr class="text-slate-400 uppercase text-[10px] font-bold tracking-wider">
-                                <th class="pb-4">Mata Pelajaran</th>
-                                <th class="pb-4">Kelas</th>
-                                <th class="pb-4">Materi</th>
-                                <th class="pb-4">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-100">
-                            @forelse($jurnals as $jurnal)
-                                <tr>
-                                    <td class="py-4 font-medium text-slate-900">
-                                        <div class="flex items-center gap-3">
-                                            <div
-                                                class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600">
-                                                <i class="fa-solid fa-book"></i>
-                                            </div>
-                                            {{ $jurnal->mapel->nama_mapel ?? 'Mapel Tidak Ditemukan' }}
-                                        </div>
-                                    </td>
-                                    <td class="py-4 text-slate-600">{{ $jurnal->kelas->nama_kelas ?? 'Kelas -' }}</td>
-                                    <td class="py-4 text-slate-600 italic">{{ Str::limit($jurnal->materi, 30) }}</td>
-                                    <td class="py-4">
-                                        @if($jurnal->status == 'Terisi' || $jurnal->status == 'Selesai')
-                                            <span
-                                                class="bg-emerald-50 text-emerald-600 px-3 py-1 rounded-full text-[10px] font-bold uppercase">Terisi</span>
-                                        @else
-                                            <span
-                                                class="bg-red-50 text-red-500 px-3 py-1 rounded-full text-[10px] font-bold uppercase">Belum
-                                                Terisi</span>
-                                        @endif
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="4" class="py-4 text-center text-slate-400">Belum ada data jurnal.</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                    @forelse($jurnals as $jurnal)
+                        <div
+                            class="bg-white p-6 rounded-[20px] shadow-sm border border-slate-50 hover:shadow-md transition-shadow">
+                            <div class="flex justify-between items-start mb-4">
+                                <span class="bg-blue-100 px-1.5 py-1 shapes-full text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                                    {{ $jurnal->kelas->nama_kelas ?? 'Kelas -' }}
+                                </span>
+
+                                @if(!empty(trim($jurnal->materi)))
+                                    <span
+                                        class="bg-emerald-50 text-emerald-600 px-3 py-1 rounded-full text-[10px] font-bold uppercase">Terisi</span>
+                                @else
+                                    <span
+                                        class="bg-red-50 text-red-500 px-3 py-1 rounded-full text-[10px] font-bold uppercase">Belum
+                                        Terisi</span>
+                                @endif
+                            </div>
+
+                            <h3 class="font-bold text-slate-800 text-lg mb-2">
+                                {{ $jurnal->mapel->nama_mapel ?? 'Mapel Tidak Ditemukan' }}
+                            </h3>
+
+                            <div class="text-slate-500 text-xs leading-relaxed line-clamp-3 mb-4">
+                                <span class="font-bold text-slate-700">Materi:</span>
+                                {{ $jurnal->materi ?? 'Belum ada ringkasan materi.' }}
+                            </div>
+
+                            <div class="pt-4 border-t border-slate-50 flex items-center text-slate-400 text-[10px]">
+                                <i class="fa-regular fa-clock mr-1"></i>
+                                <span>{{ $jurnal->created_at ? $jurnal->created_at->format('d M Y') : 'Baru saja' }}</span>
+                            </div>
+                        </div>
+                    @empty
+                        <div
+                            class="col-span-full py-10 text-center text-slate-400 bg-white rounded-[20px] border border-dashed border-slate-200">
+                            <i class="fa-solid fa-inbox text-3xl mb-2 opacity-50"></i>
+                            <p>Belum ada data jurnal yang tersedia.</p>
+                        </div>
+                    @endforelse
                 </div>
             </div>
         </main>

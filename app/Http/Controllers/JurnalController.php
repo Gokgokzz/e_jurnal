@@ -18,7 +18,7 @@ class JurnalController extends Controller
     // ==========================================
     // PENGATURAN & PROFIL
     // ==========================================
-
+    
     public function showPengaturan()
     {
         return view('admin.pengaturan');

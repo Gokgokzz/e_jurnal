@@ -121,9 +121,7 @@
             <div
                 class="w-full h-full relative overflow-hidden rounded-[32px] bg-subtract-perfect flex items-end justify-center">
 
-                <img src="{{ asset('images/siswa.png') }}"
-                    class="w-[85%] h-[88%] object-contain object-bottom select-none pointer-events-none z-10"
-                    alt="Ilustrasi Siswa Skensa">
+        
 
             </div>
         </div>
