@@ -16,7 +16,7 @@
         }
 
         .bg-custom-gradient {
-            background: linear-gradient(180deg, #A8BEF0 0%, #F4F7FF 100%);
+            background: linear-gradient(180deg, #a3acca 0%, #c5d1eb 100%);
         }
 
         .bg-subtract-perfect {
@@ -86,7 +86,7 @@
                         <div>
                             <label class="block text-xs font-bold text-gray-800 mb-1.5 ml-1">Password</label>
                             <input type="password" name="password" placeholder="Buat kata sandi" required
-                                class="w-full px-4 py-2.5 bg-white border border-gray-200/60 rounded-xl outline-none focus:ring-2 focus:ring-blue-300 transition-all text-sm shadow-sm text-gray-700">
+                                class="w-full px-4 py-2.5 bg-white border border-gray-200/60 rounded-xl outline-none focus:ring-2 focus:ring-blue-300 transition-all text-sm shadow-sm">
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-gray-800 mb-1.5 ml-1">Konfirmasi Password</label>
@@ -97,7 +97,7 @@
 
                     <div class="pt-1">
                         <button type="submit"
-                            class="w-full py-3 bg-[#6786DC] hover:bg-[#5A79D4] text-white font-bold rounded-xl shadow-md transition-all active:scale-[0.98]">
+                            class="w-full py-3 bg-[#2D3E75] hover:bg-[#2D3E55] text-white font-bold rounded-xl shadow-md transition-all active:scale-[0.98]">
                             Daftar Sekarang
                         </button>
                     </div>
@@ -107,7 +107,7 @@
                     <p class="text-xs font-semibold text-gray-500">
                         Sudah punya akun?
                         <a href="{{ route('login') }}"
-                            class="text-[#6786DC] hover:text-[#5A79D4] font-bold transition-all ml-1">
+                            class="text-[#2D3E75] hover:text-[#2D3E55] font-bold transition-all ml-1">
                             Masuk di sini
                         </a>
                     </p>
@@ -121,8 +121,9 @@
             <div
                 class="w-full h-full relative overflow-hidden rounded-[32px] bg-subtract-perfect flex items-end justify-center">
 
-        
-
+                <img src="{{ asset('images/siswa.png') }}"
+                    class="w-[85%] h-[88%] object-contain object-bottom select-none pointer-events-none z-10"
+                    alt="Ilustrasi Siswa Skensa">
             </div>
         </div>
 

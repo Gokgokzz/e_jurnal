@@ -16,7 +16,7 @@
         }
 
         .bg-custom-gradient {
-            background: linear-gradient(180deg, #A8BEF0 0%, #F4F7FF 100%);
+            background: linear-gradient(180deg, #a3acca 0%, #c5d1eb 100%);
         }
     </style>
 </head>
@@ -88,14 +88,14 @@
 
                     <div class="pt-2">
                         <button type="submit"
-                            class="w-full py-3.5 bg-[#6786DC] hover:bg-[#5A79D4] text-white font-bold rounded-xl shadow-md transition-all active:scale-[0.98]">
+                            class="w-full py-3.5 bg-[#2D3E75] hover:bg-[#2D3E55] text-white font-bold rounded-xl shadow-md transition-all active:scale-[0.98]">
                             Masuk
                         </button>
                     </div>
 
                     <p class="text-center text-xs text-gray-500 mt-6">
                         Belum punya akun? <a href="{{ route('register') }}"
-                            class="text-blue-600 font-bold hover:underline">Daftar di sini</a>
+                            class="text-dark-blue-600 font-bold hover:underline">Daftar di sini</a>
                     </p>
                 </form>
             </div>
@@ -107,6 +107,9 @@
             <div class="w-full h-full relative overflow-hidden rounded-[32px] bg-cover bg-center bg-no-repeat flex items-end justify-center"
                 style="background-image: url('{{ asset('images/subtract.png') }}');">
 
+                <img src="{{ asset('images/siswa.png') }}"
+                    class="w-[85%] h-[88%] object-contain object-bottom select-none pointer-events-none z-10"
+                    alt="Ilustrasi Siswa Skensa">
             </div>
         </div>
 

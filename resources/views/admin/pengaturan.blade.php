@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pengaturan E-Jurnal - SMKN 1 Denpasar</title>
+    <title>Pengaturan</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
+    <link rel="icon" type="image/png" href="{{ asset('images/logo-skensa.png') }}" />
 </head>
 
 <body class="bg-[#F4F7FF] text-gray-800">
@@ -46,8 +46,8 @@
                     </a>
 
                     <a href="{{ route('pengaturan') }}"
-                        class="flex items-center gap-3 px-4 py-3 bg-blue-50/70 text-[#6376EB] font-bold rounded-xl text-sm transition-all">
-                        <i class="fas fa-cog text-[#2D3E75]"></i>
+                        class="flex items-center gap-3 px-4 py-3 bg-[#2D3E75] text-white font-bold rounded-xl text-sm transition-all">
+                        <i class="fas fa-cog text-white"></i>
                         Pengaturan
                     </a>
                 </nav>
@@ -83,8 +83,8 @@
                                 </p>
                             </div>
                             <div
-                                class="w-10 h-10 bg-[#7A95E8] text-white rounded-full flex items-center justify-center font-bold text-sm shadow-md">
-                                {{ substr(Auth::user()->name, 0, 2) }}
+                                class="w-10 h-10 bg-[#2D3E75] text-white rounded-full flex items-center justify-center font-bold text-sm shadow-md">
+                                {{ substr(Auth::user()->name, 0, 1) }}
                             </div>
                         </a>
                     </div>
@@ -103,8 +103,8 @@
                     <div class="bg-white rounded-[32px] shadow-sm border border-gray-100/80 overflow-hidden">
                         <div class="p-8">
                             <div class="flex items-center gap-3 mb-8">
-                                <div class="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center">
-                                    <i class="fas fa-shield-alt text-[#6786DC]"></i>
+                                <div class="w-10 h-10 bg-[#2D3E75] rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-shield-alt text-white"></i>
                                 </div>
                                 <h2 class="text-lg font-bold text-gray-900">Keamanan Akun</h2>
                             </div>
@@ -189,7 +189,7 @@
 
                                 <div class="pt-4">
                                     <button type="submit"
-                                        class="w-full py-4 bg-[#5680F9] hover:bg-blue-700 text-white font-bold rounded-2xl shadow-lg shadow-blue-900/10 hover:shadow-xl transition-all flex items-center justify-center gap-2 text-sm">
+                                        class="w-full py-4 bg-[#2D3E75] hover:bg-[#2D3E55] text-white font-bold rounded-2xl shadow-lg shadow-blue-900/10 hover:shadow-xl transition-all flex items-center justify-center gap-2 text-sm">
                                         <i class="fas fa-check-circle text-xs"></i>
                                         Perbarui Kata Sandi
                                     </button>
@@ -199,7 +199,7 @@
                     </div>
 
                     <div
-                        class="bg-[#5680F9] rounded-[24px] p-6 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-md">
+                        class="bg-[#2D3E75] rounded-[24px] p-6 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-md">
                         <div class="flex items-center gap-4 text-center sm:text-left flex-col sm:flex-row">
                             <div
                                 class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center flex-shrink-0">

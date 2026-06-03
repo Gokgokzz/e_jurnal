@@ -34,7 +34,7 @@
                         Jurnal
                     </a>
                     <a href="#"
-                        class="flex items-center gap-3 px-4 py-3 bg-blue-50/70 text-[#6376EB] font-bold rounded-xl text-sm transition-all">
+                        class="flex items-center gap-3 px-4 py-3 bg-[#2D3E75] text-white font-bold rounded-xl text-sm transition-all">
                         <i class="fa-solid fa-chart-simple text-lg"></i>
                         Rekapitulasi
                     </a>
@@ -72,8 +72,8 @@
                                 </p>
                             </div>
                             <div
-                                class="w-10 h-10 bg-[#7A95E8] text-white rounded-full flex items-center justify-center font-bold text-sm shadow-md">
-                                {{ substr(Auth::user()->name, 0, 2) }}
+                                class="w-10 h-10 bg-[#2D3E75] text-white rounded-full flex items-center justify-center font-bold text-sm shadow-md">
+                                {{ substr(Auth::user()->name, 0, 1) }}
                             </div>
                         </a>
                     </div>
@@ -107,7 +107,7 @@
 
                             <div class="flex justify-between items-start mb-4">
                                 <span
-                                    class="bg-blue-100 px-1.5 py-1 shapes-full text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                                    class="bg-[#2D3E75] px-1.5 py-1 shapes-full text-[10px] font-bold text-white uppercase tracking-wider">
                                     {{ $jurnal->kelas->nama_kelas ?? 'Kelas -' }}
                                 </span>
                                 @if(!empty(trim($jurnal->materi)))

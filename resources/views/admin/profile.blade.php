@@ -14,7 +14,7 @@
             font-family: 'Plus Jakarta Sans', sans-serif; 
         }
         .bg-custom-gradient {
-            background: linear-gradient(180deg, #A8BEF0 0%, #F4F7FF 100%);
+            background: linear-gradient(180deg, #a3acca 0%, #c5d1eb 100%);
         }
     </style>
 </head>
@@ -30,11 +30,11 @@
         <div class="bg-white rounded-[32px] border border-gray-100/80 p-6 md:p-8 shadow-sm flex flex-col md:flex-row gap-8 items-center md:items-start">
             
             <div class="flex flex-col items-center min-w-[160px]">
-                <div class="w-28 h-28 bg-[#6376EB] text-white rounded-full flex items-center justify-center text-3xl font-extrabold shadow-md mb-4 select-none">
-                    {{ strtoupper(substr(Auth::user()->name, 0, 2)) }}
+                <div class="w-28 h-28 bg-[#2D3E75] text-white rounded-full flex items-center justify-center text-3xl font-extrabold shadow-md mb-4 select-none">
+                    {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                 </div>
                 <h2 class="font-bold text-lg text-gray-800 text-center leading-tight mb-1.5">{{ Auth::user()->name }}</h2>
-                <span class="px-3 py-1 bg-blue-50 text-[#6376EB] rounded-full text-[10px] font-extrabold uppercase tracking-wider">
+                <span class="px-3 py-1 bg-blue-50 text-[#2D3E75] rounded-full text-[10px] font-extrabold uppercase tracking-wider">
                     Administrator
                 </span>
             </div>
@@ -67,12 +67,12 @@
         </div>
 
         <div class="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 px-2">
-            <a href="{{ route('dashboard') }}" class="text-xs font-bold text-gray-500 hover:text-[#6376EB] transition-all flex items-center gap-2 order-2 sm:order-1">
+            <a href="{{ route('dashboard') }}" class="text-xs font-bold text-gray-500 hover:text-[#2D3E75] transition-all flex items-center gap-2 order-2 sm:order-1">
                 <i class="fa-solid fa-arrow-left text-sm"></i> Kembali ke Dashboard
             </a>
 
             <a href="{{ route('profile.edit') }}" 
-               class="w-full sm:w-auto px-6 py-3.5 bg-[#6786DC] hover:bg-[#5A79D4] text-white text-xs font-bold rounded-xl shadow-md text-center transition-all active:scale-[0.98] order-1 sm:order-2">
+               class="w-full sm:w-auto px-6 py-3.5 bg-[#2D3E75] hover:bg-[#2D3E55] text-white text-xs font-bold rounded-xl shadow-md text-center transition-all active:scale-[0.98] order-1 sm:order-2">
                 <i class="fa-regular fa-pen-to-square mr-1.5"></i> Edit Data Profil
             </a>
         </div>

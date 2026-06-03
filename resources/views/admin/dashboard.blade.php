@@ -12,7 +12,7 @@
 
 </head>
 
-<body class="min-h-screen flex">
+<body class="bg-[#F4F7FF] min-h-screen flex">
 
     <aside class="w-64 bg-white border-r border-gray-100 flex flex-col justify-between p-6 hidden md:flex">
         <div>
@@ -26,7 +26,7 @@
 
             <nav class="space-y-2">
                 <a href="{{ route('dashboard') }}"
-                    class="flex items-center gap-3 px-4 py-3 bg-blue-50/70 text-[#6376EB] font-bold rounded-xl text-sm transition-all">
+                    class="flex items-center gap-3 px-4 py-3 bg-[#2D3E75] text-white font-bold rounded-xl text-sm transition-all">
                     <i class="fa-solid fa-house text-lg"></i>
                     Dashboard
                 </a>
@@ -79,8 +79,8 @@
                             <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Administrator</p>
                         </div>
                         <div
-                            class="w-10 h-10 bg-[#7A95E8] text-white rounded-full flex items-center justify-center font-bold text-sm shadow-md">
-                            {{ substr(Auth::user()->name, 0, 2) }}
+                            class="w-10 h-10 bg-[#2D3E75] text-white rounded-full flex items-center justify-center font-bold text-sm shadow-md">
+                            {{ substr(Auth::user()->name, 0, 1) }}
                         </div>
                     </a>
                 </div>
@@ -88,7 +88,7 @@
         </header>
 
         <section
-            class="bg-gradient-to-r from-[#6376EB] to-[#7A95E8] rounded-[32px] p-8 md:p-12 text-white relative overflow-hidden shadow-lg shadow-blue-500/10 mb-8 flex flex-col md:flex-row md:items-center justify-start gap-6">
+            class="bg-[#2D3E75] rounded-[32px] p-8 md:p-12 text-white relative overflow-hidden shadow-lg shadow-blue-500/10 mb-8 flex flex-col md:flex-row md:items-center justify-start gap-6">
             <div class="absolute top-6 right-12 w-20 h-20 bg-white/10 rounded-2xl rotate-12 pointer-events-none"></div>
             <div class="absolute -bottom-6 right-36 w-16 h-16 bg-white/15 rounded-xl -rotate-12 pointer-events-none">
             </div>
@@ -105,7 +105,7 @@
                 </p>
                 <div class="flex flex-wrap gap-3">
                     <a href="{{ route('rekapitulasi') }}" <button
-                        class="px-5 py-2.5 bg-white text-[#6376EB] font-semibold rounded-xl text-xs hover:bg-opacity-90 transition-all shadow-sm">
+                        class="px-5 py-2.5 bg-white text-[#2D3E75] font-semibold rounded-xl text-xs hover:bg-opacity-90 transition-all shadow-sm">
                         Lihat Jadwal
                         </button>
                     </a>
@@ -119,11 +119,11 @@
                 class="bg-white p-5 rounded-[24px] border border-gray-100 shadow-sm flex flex-col justify-start h-[150px] md:h-[160px] relative transition-all hover:shadow-md">
                 <div class="flex justify-between items-center w-full">
                     <div
-                        class="w-11 h-11 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center text-lg shadow-sm">
+                        class="w-11 h-11 bg-[#2D3E75] text-white rounded-2xl flex items-center justify-center text-lg shadow-sm">
                         <i class="fa-solid fa-book-open"></i>
                     </div>
-                    <span class="bg-emerald-50 text-emerald-600 px-2.5 py-0.5 rounded-full text-[10px] font-bold">
-                        84%
+                    <span class="text-slate-400 text-[10px] font-bold uppercase tracking-wider">
+                        HARI INI
                     </span>
                 </div>
 
@@ -141,7 +141,7 @@
                 class="bg-white p-5 rounded-[24px] border border-gray-100 shadow-sm flex flex-col justify-start h-[150px] md:h-[160px] relative transition-all hover:shadow-md">
                 <div class="flex justify-between items-center w-full">
                     <div
-                        class="w-11 h-11 bg-purple-50 text-purple-600 rounded-2xl flex items-center justify-center text-lg shadow-sm">
+                        class="w-11 h-11 bg-[#2D3E75] text-white rounded-2xl flex items-center justify-center text-lg shadow-sm">
                         <i class="fa-solid fa-users"></i>
                     </div>
                     <span class="text-slate-400 text-[10px] font-bold uppercase tracking-wider">
@@ -163,10 +163,10 @@
                 class="bg-white p-5 rounded-[24px] border border-gray-100 shadow-sm flex flex-col justify-start h-[150px] md:h-[160px] relative transition-all hover:shadow-md">
                 <div class="flex justify-between items-center w-full">
                     <div
-                        class="w-11 h-11 bg-orange-50 text-orange-500 rounded-2xl flex items-center justify-center text-lg shadow-sm">
+                        class="w-11 h-11 bg-[#2D3E75] text-white rounded-2xl flex items-center justify-center text-lg shadow-sm">
                         <i class="fa-solid fa-user-tie"></i>
                     </div>
-                    <span class="bg-emerald-50 text-emerald-600 px-2 py-0.5 rounded-full text-[10px] font-bold">
+                    <span class="text-slate-400 text-[10px] font-bold uppercase tracking-wider">
                         +2
                     </span>
                 </div>
@@ -185,7 +185,7 @@
                 class="bg-white p-5 rounded-[24px] border border-gray-100 shadow-sm flex flex-col justify-start h-[150px] md:h-[160px] relative transition-all hover:shadow-md">
                 <div class="flex justify-between items-center w-full">
                     <div
-                        class="w-11 h-11 bg-teal-50 text-teal-600 rounded-2xl flex items-center justify-center text-lg shadow-sm">
+                        class="w-11 h-11 bg-[#2D3E75] text-white rounded-2xl flex items-center justify-center text-lg shadow-sm">
                         <i class="fa-solid fa-door-open"></i>
                     </div>
                     <span class="text-slate-400 text-[10px] font-bold uppercase tracking-wider">
@@ -211,8 +211,8 @@
                 class="md:col-span-2 bg-white rounded-[32px] border border-gray-100 p-6 md:p-8 flex flex-col shadow-sm">
                 <div class="flex justify-between items-center mb-6">
                     <h3 class="font-extrabold text-slate-800 text-lg">Entri Jurnal Terbaru</h3>
-                    <a href="#"
-                        class="text-xs font-bold text-[#6376EB] hover:text-[#4a5bd1] transition-colors flex items-center gap-1">
+                    <a href="{{ route('rekapitulasi') }}"
+                        class="text-xs font-bold text-[#2D3E75] hover:text-[#2D3E55] transition-colors flex items-center gap-1">
                         Lihat Semua <i class="fa-solid fa-arrow-right"></i>
                     </a>
                 </div>
@@ -281,7 +281,7 @@
                     <a href="{{ route('register') }}"
                         class="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 hover:bg-blue-50/50 transition-all group">
                         <div
-                            class="w-12 h-12 bg-blue-100 text-[#6376EB] rounded-xl flex items-center justify-center text-xl group-hover:bg-[#6376EB] group-hover:text-white transition-all">
+                            class="w-12 h-12 bg-[#2D3E75] text-white rounded-xl flex items-center justify-center text-xl group-hover:bg-[#2D3E55] group-hover:text-white transition-all">
                             <i class="fa-solid fa-user-plus"></i>
                         </div>
                         <div>

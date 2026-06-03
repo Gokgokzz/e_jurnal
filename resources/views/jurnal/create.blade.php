@@ -29,7 +29,7 @@
                         Dashboard
                     </a>
                     <a href="{{ route('jurnal.create') }}"
-                        class="flex items-center gap-3 px-4 py-3 bg-blue-50/70 text-[#6376EB] font-bold rounded-xl text-sm transition-all">
+                        class="flex items-center gap-3 px-4 py-3 bg-[#2D3E75] text-white font-bold rounded-xl text-sm transition-all">
                         <span class="w-5 text-center"><i class="fa-solid fa-pen-to-square text-base"></i></span> Input
                         Jurnal
                     </a>
@@ -69,8 +69,8 @@
                                 <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Administrator</p>
                             </div>
                             <div
-                                class="w-10 h-10 bg-[#7A95E8] text-white rounded-full flex items-center justify-center font-bold text-sm shadow-md">
-                                {{ substr(Auth::user()->name, 0, 2) }}
+                                class="w-10 h-10 bg-[#2D3E75] text-white rounded-full flex items-center justify-center font-bold text-sm shadow-md">
+                                {{ substr(Auth::user()->name, 0, 1) }}
                             </div>
                         </a>
                     </div>
@@ -100,7 +100,7 @@
                         <div class="bg-white p-8 rounded-[30px] shadow-sm border border-slate-50">
                             <div class="flex items-center gap-3 mb-6">
                                 <div
-                                    class="w-8 h-8 bg-blue-50 text-blue-600 rounded-lg flex items-center justify-center text-xs">
+                                    class="w-8 h-8 bg-[#2D3E75] text-white rounded-lg flex items-center justify-center text-xs">
                                     <i class="fa-solid fa-info-circle"></i>
                                 </div>
                                 <h4 class="font-bold text-slate-800">Informasi Jurnal</h4>
@@ -158,8 +158,8 @@
                             <div class="flex justify-between items-center mb-6">
                                 <div class="flex items-center gap-3">
                                     <div
-                                        class="w-8 h-8 bg-orange-50 text-orange-600 rounded-lg flex items-center justify-center text-xs">
-                                        <i class="fa-solid fa-users-check"></i>
+                                        class="w-8 h-8 bg-[#2D3E75] text-white rounded-lg flex items-center justify-center text-xs">
+                                        <i class="fa-solid fa-circle"></i>
                                     </div>
                                     <h4 class="font-bold text-slate-800">Presensi Siswa</h4>
                                 </div>
@@ -197,7 +197,7 @@
 
                             <div class="space-y-3">
                                 <button type="submit"
-                                    class="w-full bg-[#5680F9] hover:bg-blue-700 text-white font-bold py-4 rounded-2xl shadow-lg shadow-blue-100 transition flex items-center justify-center gap-3 text-sm">
+                                    class="w-full bg-[#2D3E75] hover:bg-[#2D3E55] text-white font-bold py-4 rounded-2xl shadow-lg shadow-blue-100 transition flex items-center justify-center gap-3 text-sm">
                                     <i class="fa-solid fa-cloud-arrow-up"></i> Simpan Jurnal
                                 </button>
                                 <a href="{{ route('dashboard') }}"
@@ -206,18 +206,7 @@
                                 </a>
                             </div>
 
-                            <hr class="my-8 border-slate-50">
-
-                            <div class="flex items-center gap-4 text-slate-400">
-                                <div class="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-lg">
-                                    <i class="fa-solid fa-shield-halved"></i>
-                                </div>
-                                <div>
-                                    <p class="text-[10px] font-bold uppercase tracking-wider">Validasi Sistem</p>
-                                    <p class="text-[10px] font-medium leading-tight">Data akan langsung masuk ke
-                                        rekapitulasi sekolah.</p>
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>

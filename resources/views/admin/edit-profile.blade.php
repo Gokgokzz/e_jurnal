@@ -14,7 +14,7 @@
             font-family: 'Plus Jakarta Sans', sans-serif; 
         }
         .bg-custom-gradient {
-            background: linear-gradient(180deg, #A8BEF0 0%, #F4F7FF 100%);
+            background: linear-gradient(180deg, #a3acca 0%, #c5d1eb 100%);
         }
     </style>
 </head>
@@ -44,7 +44,7 @@
                 </div>
 
                 <div class="pt-2">
-                    <button type="submit" class="w-full px-6 py-3.5 bg-[#6376EB] hover:bg-[#5365DB] text-white text-xs font-bold rounded-xl shadow-md text-center transition-all active:scale-[0.98]">
+                    <button type="submit" class="w-full px-6 py-3.5 bg-[#2D3E75] hover:bg-[#2D3E55] text-white text-xs font-bold rounded-xl shadow-md text-center transition-all active:scale-[0.98]">
                         <i class="fa-regular fa-floppy-disk mr-1.5"></i> Simpan Perubahan
                     </button>
                 </div>
@@ -68,7 +68,7 @@
         </div>
 
         <div class="mt-6 ml-2">
-            <a href="{{ route('profile.edit') }}" onclick="window.history.back(); return false;" class="text-xs font-bold text-gray-500 hover:text-[#6376EB] transition-all flex items-center gap-2">
+            <a href="{{ route('profile.edit') }}" onclick="window.history.back(); return false;" class="text-xs font-bold text-gray-500 hover:text-[#2D3E75] transition-all flex items-center gap-2">
                 <i class="fa-solid fa-arrow-left text-sm"></i> Kembali ke Profil
             </a>
         </div>
