@@ -123,7 +123,10 @@
                             <h3 class="font-bold text-slate-800 text-lg mb-2">
                                 {{ $jurnal->mapel->nama_mapel ?? 'Mapel Tidak Ditemukan' }}
                             </h3>
-
+                            <div class="flex items-center gap-2 mb-3 text-slate-500">
+                                <i class="fa-solid fa-chalkboard-user text-[10px]"></i>
+                                <span class="text-xs font-semibold">{{ $jurnal->user->name ?? 'Guru Tidak Dikenal' }}</span>
+                            </div>
                             <div class="flex items-center gap-2 mb-4 text-slate-600">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -183,7 +186,7 @@
                         tidakHadir.forEach(item => {
                             // Perbaikan: Gunakan ?. dan || untuk menangani jika siswa tidak ada
                             const namaSiswa = item.siswa?.nama_siswa || 'Nama Tidak Diketahui';
-                            
+
                             html += `
                             <li class="flex justify-between items-center bg-red-50 p-3 rounded-xl">
                                 <span class="font-medium text-slate-700 text-sm">${namaSiswa}</span>
