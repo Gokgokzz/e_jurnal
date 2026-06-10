@@ -236,9 +236,9 @@
                         <tbody class="divide-y divide-slate-50">
                             @foreach($jurnalTerbaru as $jurnal)
                                 <tr>
-                                    <td class="py-4 text-sm text-gray-600">{{ $jurnal->nama_kelas }}</td>
-                                    <td class="py-4 text-sm text-gray-600">{{ $jurnal->nama_guru }}</td>
-                                    <td class="py-4 text-sm text-gray-600">{{ $jurnal->mata_pelajaran }}</td>
+                                    <td class="py-4 text-sm text-gray-600">{{ $jurnal->kelas->nama_kelas ?? '-' }}</td>
+                                    <td class="py-4 text-sm text-gray-600">{{ $jurnal->user->name ?? '-' }}</td>
+                                    <td class="py-4 text-sm text-gray-600">{{ $jurnal->mapel->nama_mapel ?? '-' }}</td>
                                     <td class="py-4 text-sm text-gray-600">
                                         @if($jurnal->status == 'Selesai' || $jurnal->status == 'Terisi')
                                             <span

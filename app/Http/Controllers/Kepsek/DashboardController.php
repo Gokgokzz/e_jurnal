@@ -16,23 +16,26 @@ class DashboardController extends Controller
             return redirect('/dashboard');
         }
 
-        // 2. Ambil data jurnal terbaru
-        $jurnalTerbaru = Jurnal::latest()->limit(5)->get();
-
-        // 3. LOGIKA: Ambil guru yang belum mengisi jurnal hari ini
-        
-        // Ambil semua user yang role-nya 'guru'
+        // 2. Ambil data guru yang belum mengisi (Logika sudah benar)
         $semuaGuru = User::where('role', 'guru')->get();
-        
-        // Ambil daftar ID user (guru) yang sudah mengisi jurnal hari ini
         $idGuruSudahMengisi = Jurnal::whereDate('created_at', today())
-                                    ->pluck('user_id')
-                                    ->toArray();
-        
-        // Filter: Ambil guru yang ID-nya TIDAK ADA di daftar sudah mengisi
+            ->pluck('user_id')
+            ->toArray();
         $guruBelumMengisi = $semuaGuru->whereNotIn('id', $idGuruSudahMengisi);
 
+        // 3. AMBIL DATA JURNAL DENGAN RELASI (Eager Loading)
+        // Pastikan kedua variabel ini menggunakan with()
+        $jurnalTerbaru = Jurnal::with(['kelas', 'mapel', 'user'])
+            ->latest()
+            ->limit(5)
+            ->get();
+
+        $jurnals = Jurnal::with(['kelas', 'mapel', 'user'])
+            ->latest()
+            ->take(8)
+            ->get();
+
         // 4. Kirim data ke view
-        return view('kepsek.dashboard', compact('jurnalTerbaru', 'guruBelumMengisi'));
+        return view('kepsek.dashboard', compact('jurnalTerbaru', 'guruBelumMengisi', 'jurnals'));
     }
 }
