@@ -7,6 +7,7 @@
     <title>Login</title>
     <link rel="icon" type="image/png" href="{{ asset('images/logo-skensa.png') }}" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap"
         rel="stylesheet">
 
@@ -44,8 +45,10 @@
                     @csrf
 
                     @if (session('success'))
-                        <div
+                        <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 3000)" x-show="show"
+                            x-transition
                             class="p-4 bg-green-50 border border-green-200 text-green-600 rounded-xl text-xs font-semibold shadow-sm">
+
                             <div class="flex items-center gap-2">
                                 <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

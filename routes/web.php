@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JurnalController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Kepsek\DashboardController; 
 
 // ==========================================
 // AUTHENTICATION ROUTES
@@ -20,8 +21,7 @@ Route::get('/', function () {
 // ==========================================
 // PROTECTED ROUTES (Auth Required)
 // ==========================================
-Route::middleware('auth')->group(function () {
-
+Route::middleware(['web', 'auth'])->group(function () {
     // Dashboard
     Route::get('/dashboard', [JurnalController::class, 'dashboardAdmin'])->name('dashboard');
 
@@ -47,4 +47,9 @@ Route::middleware('auth')->group(function () {
 
     // Rekapitulasi
     Route::get('/rekapitulasi', [JurnalController::class, 'rekapitulasi'])->name('rekapitulasi');
+
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/kepsek/dashboard', [DashboardController::class, 'index'])->name('kepsek.dashboard');
+    });
+
 });

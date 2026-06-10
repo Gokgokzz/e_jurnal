@@ -94,9 +94,17 @@ class JurnalController extends Controller
     // ==========================================
     // JURNAL & DASHBOARD
     // ==========================================
+    // Di dalam class Jurnal
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
     public function dashboardAdmin()
     {
+        if (Auth::user()->role === 'admin' || Auth::user()->role === 'kepsek') {
+            return redirect()->route('kepsek.dashboard');
+        }
         $totalJurnalHariIni = DB::table('jurnals')->whereDate('tanggal', today())->count();
         $totalSiswa = DB::table('siswas')->count();
         $guruAktif = DB::table('users')->count();
@@ -195,7 +203,7 @@ class JurnalController extends Controller
 
     public function rekapitulasi()
     {
-        $jurnals = Jurnal::with(['kelas', 'mapel', 'absensis.siswa'])->latest()->get();
+        $jurnals = Jurnal::with(['kelas', 'mapel', 'absensis.siswa', 'user'])->latest()->get();
         $totalSesi = Jurnal::count();
         $totalSiswa = Siswa::count();
         $totalTidakHadir = Absensi::whereIn('status', ['Sakit', 'Izin', 'Alpa'])->count();
@@ -262,6 +270,14 @@ class JurnalController extends Controller
 
         if (Auth::attempt(['name' => $request->name, 'password' => $request->password])) {
             $request->session()->regenerate();
+
+            // TAMBAHKAN LOGIKA INI:
+            // Cek role user, jika admin atau kepsek, arahkan ke dashboard kepsek
+            if (Auth::user()->role === 'admin' || Auth::user()->role === 'kepsek') {
+                return redirect()->route('kepsek.dashboard');
+            }
+
+            // Jika bukan, arahkan ke dashboard guru biasa
             return redirect()->intended('dashboard');
         }
 

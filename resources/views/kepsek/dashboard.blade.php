@@ -276,21 +276,30 @@
             </div>
 
             <div class="bg-white rounded-[32px] border border-gray-100 p-6 md:p-8 shadow-sm">
-                <h3 class="font-extrabold text-gray-800 text-lg mb-6">Akses Cepat</h3>
                 <div class="space-y-4">
-                    <a href="{{ route('register') }}"
-                        class="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 hover:bg-blue-50/50 transition-all group">
-                        <div
-                            class="w-12 h-12 bg-[#2D3E75] text-white rounded-xl flex items-center justify-center text-xl group-hover:bg-[#2D3E55] group-hover:text-white transition-all">
-                            <i class="fa-solid fa-user-plus"></i>
+                    <div class="bg-white rounded-[32px] border border-gray-100 p-6 md:p-8 shadow-sm mt-8">
+                        <h3 class="font-extrabold text-gray-800 text-lg mb-6">Guru Belum Mengisi</h3>
+                        <div class="space-y-3">
+                            @forelse($guruBelumMengisi as $guru)
+                                <div class="flex items-center gap-3 p-3 bg-red-50 rounded-xl transition-all">
+                                    <div
+                                        class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-600 font-bold text-xs">
+                                        {{ substr($guru->name, 0, 1) }}
+                                    </div>
+                                    <p class="text-sm font-semibold text-gray-700">{{ $guru->name }}</p>
+                                </div>
+                            @empty
+                                <div class="flex items-center gap-3 p-4 bg-emerald-50 rounded-xl text-emerald-600">
+                                    <i class="fa-solid fa-check-circle"></i>
+                                    <p class="text-sm font-bold">Semua guru sudah mengisi!</p>
+                                </div>
+                            @endforelse
                         </div>
-                        <div>
-                            <h4 class="font-bold text-gray-800 text-sm">Tambah Guru</h4>
-                            <p class="text-xs text-gray-400 font-medium mt-0.5">Input data pengajar baru</p>
-                        </div>
-                    </a>
+                    </div>
                 </div>
             </div>
+
+
 
         </div>
     </main>
